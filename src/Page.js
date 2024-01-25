@@ -104,7 +104,7 @@ export default function Page({ pageParts }) {
         <PagePart key="home" active={currentPagePartId === ''} />
         <img
           className="content-img"
-          src="/src/assets/ueshiba.svg"
+          src="/ueshiba.svg"
           alt="Morihei Ueshiba"
           style={{ marginTop: '4rem' }}
         />

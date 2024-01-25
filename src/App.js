@@ -34,7 +34,7 @@ const pageParts = [
         </p>
         <img
           alt="Aikido"
-          src="src/assets/aiki.svg"
+          src="/aiki.svg"
           className="content-img"
           style={{
             filter: 'saturate(0)',

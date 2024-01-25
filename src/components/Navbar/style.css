@@ -22,11 +22,11 @@
   cursor: pointer;
   background-size: 100%;
   background-repeat: no-repeat;
-  background-image: url(src/assets/burger.svg);
+  background-image: url(/burger.svg);
 }
 
 .navbar.active .hamburger {
-  background-image: url(src/assets/burger-closed.svg);
+  background-image: url(/burger-closed.svg);
 }
 
 .navbar .menu-items {
