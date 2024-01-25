@@ -40,6 +40,7 @@ const pageParts = [
             filter: 'saturate(0)',
             marginTop: 0,
             marginBottom: '4rem',
+            width: '100%',
           }}
         />
         <p>

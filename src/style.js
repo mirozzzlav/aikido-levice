@@ -117,9 +117,10 @@ export const globalStyle = {
     marginLeft: 'auto',
     marginRight: 'auto',
     display: 'block',
+    width: '80%',
     maxHeight: '600px',
     maxWidth: '600px',
-    objectFit: 'cover',
+    objectFit: 'contain',
     alignSelf: 'center',
     '&:last-child': {
       marginBottom: 0,
@@ -183,6 +184,10 @@ export const globalStyle = {
     flexDirection: 'column',
   },
   '.page-part-with-content': {
+    textAlign: 'justify',
+    [mediaQueries.sm]: {
+      textAlign: 'left',
+    },
     margin: '2rem 0 4rem 0',
     'h1, h2': {
       textAlign: 'center',
