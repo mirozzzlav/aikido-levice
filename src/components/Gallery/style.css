@@ -3,12 +3,33 @@
 
 .react-photo-album--photo {
     border-radius: 8px;
-    transition: all 0.1s linear;
-    box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.0);
+    margin:0 !important;
+    object-fit: cover;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.2);
+    transition: box-shadow 0.1s linear;
 }
 .react-photo-album--photo:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.3);
+}
+
+.thumb-wrapper {
+    margin-bottom: 1rem;
+}
+
+.video-iframe {
+    width: 100%;
+    min-width: 300px;
+    aspect-ratio: 16/9;
+}
+.video-iframe.long {
+    width: auto;
+    height: 100%;
+    max-height: 800px;
+}
+
+.media-extra-content {
+    margin: 0rem 0.2rem;
+    font-size: 0.9rem;
 }
 .video-thumb {
     position: relative;

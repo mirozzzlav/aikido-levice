@@ -8,6 +8,7 @@ import { Thumbnails, Fullscreen } from 'yet-another-react-lightbox/plugins';
 
 import 'src/components/Gallery/style.css';
 import { css, cx } from '@emotion/css';
+import { breakPoints } from 'src/style';
 
 function getImageDimensions(imageUrl) {
   return new Promise((resolve, reject) => {
@@ -24,20 +25,12 @@ function getImageDimensions(imageUrl) {
   });
 }
 
-const style = {
-  iframe: css({
-    width: '80%',
-    height: `${0.75 * 80}%`,
-    minWidth: '300px',
-    objectFit: 'contain',
-  }),
-};
 export default function Gallery({ media: mediaFromProps }) {
   const [index, setIndex] = useState(-1);
   const [media, setMedia] = useState([]);
   useEffect(
     () =>
-      mediaFromProps.forEach(async ({ src, video }) => {
+      mediaFromProps.forEach(async ({ src, video, extraContent }) => {
         const { width, height } = await getImageDimensions(src);
         setMedia((prevMedia) => {
           if (prevMedia.find(({ src: prevSrc }) => prevSrc === src)) {
@@ -50,6 +43,7 @@ export default function Gallery({ media: mediaFromProps }) {
               width,
               height,
               video,
+              extraContent,
             },
           ];
         });
@@ -60,19 +54,36 @@ export default function Gallery({ media: mediaFromProps }) {
   return (
     <>
       <PhotoAlbum
+        spacing="18"
         photos={media}
         layout="masonry"
-        targetRowHeight={150}
+        columns={(containerWidth) =>
+          containerWidth > breakPoints.xs ? Math.floor(containerWidth / 200) : 2
+        }
         onClick={({ index: indexToBeSet }) => setIndex(indexToBeSet)}
         renderPhoto={({
           wrapperStyle,
           renderDefaultPhoto,
-          photo: { video },
-        }) => (
-          <div className={cx(css(wrapperStyle), video ? 'video-thumb' : null)}>
-            {renderDefaultPhoto({ wrapped: true })}
-          </div>
-        )}
+          photo: { video, src },
+        }) => {
+          const { extraContent } = Object.values(media).find(
+            ({ src: currentSrc }) => src === currentSrc,
+          );
+          return (
+            <div className="thumb-wrapper">
+              {video ? (
+                <div className={cx(css(wrapperStyle), 'video-thumb')}>
+                  {renderDefaultPhoto({ wrapped: true })}
+                </div>
+              ) : (
+                renderDefaultPhoto()
+              )}
+              {extraContent ? (
+                <div className="media-extra-content">{extraContent}</div>
+              ) : null}
+            </div>
+          );
+        }}
       />
 
       <Lightbox
@@ -86,12 +97,11 @@ export default function Gallery({ media: mediaFromProps }) {
             if (!slide.video) {
               return null;
             }
-            const w = Math.max(300, Math.round(0.75 * rect.width));
             return (
               <iframe
-                className={style.iframe}
-                // width={w}
-                // height={Math.round(0.75 * w)}
+                className={`video-iframe${
+                  rect.width / rect.height > 16 / 9 ? ' long' : ''
+                }`}
                 src={`${slide.video.src}`}
                 title={slide.title}
                 frameBorder="0"

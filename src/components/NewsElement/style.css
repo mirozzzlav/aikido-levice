@@ -1,0 +1,11 @@
+.news-element {
+    padding: 0.4rem 0;
+}
+.news-element > * {
+    font-size: 0.85rem;
+}
+.news-element > h4 {
+    padding: 0;
+    margin: 0;
+    font-weight: 600;
+}

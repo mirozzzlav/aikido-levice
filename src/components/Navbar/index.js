@@ -2,13 +2,13 @@ import React from 'react';
 import './style.css';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Index from 'src/components/Logo';
+import Logo from 'src/components/Logo';
 
 export default function Navbar({ routes, menuActive, setMenuActive }) {
   return (
     <nav className={`navbar${menuActive ? ' active' : ''}`}>
       <div className="navbar-top">
-        <Index />
+        <Logo />
 
         {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
         <button

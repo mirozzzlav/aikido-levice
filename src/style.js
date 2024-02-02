@@ -13,12 +13,10 @@ const mediaQueries = Object.fromEntries(
 );
 
 export const globalStyle = {
-  '@import':
-    'url("https://fonts.googleapis.com/css2?family=Mynerve&family=Open+Sans:ital,wght@0,300,0,400,0,500,1,600&display=swap")',
   '*': {
     boxSizing: 'border-box',
     lineHeight: '1.5',
-    fontFamily: "'Open Sans', sans-serif",
+    fontFamily: "'Roboto', sans-serif",
     fontWeight: '400',
     color: '#000',
   },
@@ -39,7 +37,7 @@ export const globalStyle = {
     backgroundColor: '#fff',
   },
   h1: {
-    fontFamily: "'Mynerve', cursive",
+    fontFamily: "'Gloria Hallelujah', cursive",
     margin: '0rem 0 2rem 0',
     fontSize: '2.8rem',
     color: '#668972',
@@ -105,6 +103,18 @@ export const globalStyle = {
       },
     },
   },
+  '.main-loader': {
+    position: 'fixed',
+    zIndex: 999,
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: '#fff',
+    backgroundImage: 'url(/loader.gif)',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  },
   header: {
     position: 'sticky',
     zIndex: 100,
@@ -127,6 +137,10 @@ export const globalStyle = {
     },
   },
   '.main-section': {
+    maxWidth: 'var(--content-width)',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    padding: '0 2rem',
     '&.menu-active': {
       filter: 'blur(20px)',
     },
@@ -170,20 +184,13 @@ export const globalStyle = {
       borderBottom: '2px solid rgb(245, 249, 246)',
     },
   },
-
-  '.content': {
-    maxWidth: 'var(--content-width)',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    padding: '0 2rem',
-  },
-  '.page-part': {
+  '.page': {
     scrollMarginTop: '150px',
     minHeight: '1px',
     display: 'flex',
     flexDirection: 'column',
   },
-  '.page-part-with-content': {
+  '.page-with-content': {
     textAlign: 'justify',
     [mediaQueries.sm]: {
       textAlign: 'left',
