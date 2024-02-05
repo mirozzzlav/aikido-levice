@@ -1,4 +1,5 @@
 import React from 'react';
+import { globalStyle as style } from 'src/style';
 
 const page = {
   id: 'o-aikide',
@@ -27,7 +28,7 @@ const page = {
       <img
         alt="Aikido"
         src="/aiki.svg"
-        className="content-img"
+        className={style.contentImg}
         style={{
           filter: 'saturate(0)',
           marginTop: 0,

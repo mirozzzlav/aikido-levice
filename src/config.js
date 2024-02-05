@@ -4,8 +4,19 @@ const config = {
   },
   mailSend: {
     url: 'https://api.emailjs.com/api/v1.0/email/send',
-    serviceId: 'service_pb036y9',
-    publicKey: 'qzgyAGPgokOP42MzY',
+    serviceId: 'service_4xfc74g',
+    publicKey: 'SeoE35BedqrB4LK-w',
+  },
+  gallery: {
+    spacing: '26px',
   },
 };
+
+export const formStates = {
+  initial: 'initial',
+  loading: 'loading',
+  success: 'success',
+  error: 'error',
+};
+
 export default config;

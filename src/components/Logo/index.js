@@ -1,14 +1,17 @@
 import React from 'react';
-import './style.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { css, cx } from '@emotion/css';
+import style from 'src/components/Logo/style';
 
 export default function Logo({ color, width, height }) {
   return (
     <Link
       to="/"
-      className={cx('logo', css({ ' > svg': { fill: color, width, height } }))}
+      className={cx(
+        style.logo,
+        css({ ' > svg': { fill: color, width, height } }),
+      )}
     >
       <svg
         version="1.0"

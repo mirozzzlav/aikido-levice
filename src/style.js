@@ -1,3 +1,5 @@
+import { css } from '@emotion/css';
+
 export const breakPoints = {
   xs: 576,
   sm: 768,
@@ -45,8 +47,8 @@ export const globalStyle = {
   h2: {
     margin: '1.8rem 0 0.4rem 0',
     padding: '0',
-    fontSize: '1.2rem',
-    fontWeight: 'bold',
+    fontSize: '1.6rem',
+    fontWeight: '300',
   },
   a: {
     color: '#668972',
@@ -59,30 +61,38 @@ export const globalStyle = {
     margin: 0,
     padding: 0,
   },
-  '.info-cols': {
-    margin: '0.2rem auto',
+  infoColsWrapper: css({
+    margin: '0rem 0 1rem 0',
     display: 'flex',
+    gap: '1rem',
     flexWrap: 'wrap',
-    width: '300px',
     justifyContent: 'center',
-    '& > *': {
+  }),
+  infoCols: css({
+    background: '#fff',
+    boxShadow: '10px 10px 10px 0px rgba(0,0,0,0.03)',
+    border: '1px solid #00000018',
+    padding: '1rem 2rem',
+    borderRadius: '100px',
+    '& > *, a': {
       textAlign: 'center',
+      fontWeight: 300,
+      flexGrow: 1,
     },
-    [mediaQueries.sm]: {
-      width: 'auto',
-      '& > *': {
-        textAlign: 'left',
-      },
+    'a:hover': {
+      textDecoration: 'underline',
     },
-    '& > :nth-of-type(1)': {
-      width: '10rem',
-      fontWeight: 'bold',
+    '& > h4': {
+      fontWeight: 400,
+      padding: 0,
+      margin: 0,
+      fontSize: '1.15rem',
     },
     '& > :nth-of-type(2)': {
-      width: '20rem',
+      minWidth: '300px',
     },
-  },
-  '.imgs-with-captions': {
+  }),
+  imgsWithCaptions: css({
     margin: '0 auto',
     display: 'flex',
     justifyContent: 'center',
@@ -94,16 +104,15 @@ export const globalStyle = {
       alignItems: 'center',
       span: {
         marginTop: '0.4rem',
-        fontSize: '0.9rem',
-        fontStyle: 'italic',
+        fontWeight: 300,
       },
       img: {
         height: '250px',
         borderRadius: '8px',
       },
     },
-  },
-  '.main-loader': {
+  }),
+  mainLoader: css({
     position: 'fixed',
     zIndex: 999,
     top: 0,
@@ -114,7 +123,7 @@ export const globalStyle = {
     backgroundImage: 'url(/loader.gif)',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-  },
+  }),
   header: {
     position: 'sticky',
     zIndex: 100,
@@ -123,7 +132,7 @@ export const globalStyle = {
     backgroundColor: '#ffffff',
     padding: '0.8rem 0',
   },
-  '.content-img': {
+  contentImg: css({
     marginLeft: 'auto',
     marginRight: 'auto',
     display: 'block',
@@ -135,16 +144,15 @@ export const globalStyle = {
     '&:last-child': {
       marginBottom: 0,
     },
-  },
-  '.main-section': {
-    maxWidth: 'var(--content-width)',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    padding: '0 2rem',
-    '&.menu-active': {
-      filter: 'blur(20px)',
-    },
-  },
+  }),
+  mainSection: (active) =>
+    css({
+      maxWidth: 'var(--content-width)',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      padding: '0 2rem',
+      ...(active && { filter: 'blur(20px)' }),
+    }),
   footer: {
     background: '#9abea6',
     '--mask':
@@ -184,13 +192,13 @@ export const globalStyle = {
       borderBottom: '2px solid rgb(245, 249, 246)',
     },
   },
-  '.page': {
+  page: css({
     scrollMarginTop: '150px',
     minHeight: '1px',
     display: 'flex',
     flexDirection: 'column',
-  },
-  '.page-with-content': {
+  }),
+  pageWithContent: css({
     textAlign: 'justify',
     [mediaQueries.sm]: {
       textAlign: 'left',
@@ -204,5 +212,5 @@ export const globalStyle = {
         marginBottom: 0,
       },
     },
-  },
+  }),
 };

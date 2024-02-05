@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import PhotoAlbum from 'react-photo-album';
 import Lightbox from 'yet-another-react-lightbox';
-
 import { Thumbnails, Fullscreen } from 'yet-another-react-lightbox/plugins';
 
-import 'src/components/Gallery/style.css';
-import { css, cx } from '@emotion/css';
+import { cx, css } from '@emotion/css';
 import { breakPoints } from 'src/style';
+import style from 'src/components/Gallery/style';
+import config from 'src/config';
 
 function getImageDimensions(imageUrl) {
   return new Promise((resolve, reject) => {
@@ -54,7 +54,7 @@ export default function Gallery({ media: mediaFromProps }) {
   return (
     <>
       <PhotoAlbum
-        spacing="18"
+        spacing={parseInt(config.gallery.spacing, 10)}
         photos={media}
         layout="masonry"
         columns={(containerWidth) =>
@@ -70,16 +70,21 @@ export default function Gallery({ media: mediaFromProps }) {
             ({ src: currentSrc }) => src === currentSrc,
           );
           return (
-            <div className="thumb-wrapper">
+            <div
+              className={cx(
+                style.thumbWrapper,
+                css({ marginBottom: config.gallery.spacing }),
+              )}
+            >
               {video ? (
-                <div className={cx(css(wrapperStyle), 'video-thumb')}>
+                <div className={cx(css(wrapperStyle), style.videoThumb)}>
                   {renderDefaultPhoto({ wrapped: true })}
                 </div>
               ) : (
                 renderDefaultPhoto()
               )}
               {extraContent ? (
-                <div className="media-extra-content">{extraContent}</div>
+                <div className={style.mediaExtraContent}>{extraContent}</div>
               ) : null}
             </div>
           );
@@ -92,22 +97,25 @@ export default function Gallery({ media: mediaFromProps }) {
         index={index}
         close={() => setIndex(-1)}
         plugins={[Fullscreen, Thumbnails]}
+        className={style.lightBoxRoot}
         render={{
           slide: ({ slide, rect }) => {
             if (!slide.video) {
               return null;
             }
             return (
-              <iframe
-                className={`video-iframe${
-                  rect.width / rect.height > 16 / 9 ? ' long' : ''
-                }`}
-                src={`${slide.video.src}`}
-                title={slide.title}
-                frameBorder="0"
-                allow="accelerometer;"
-                allowFullScreen
-              />
+              <div
+                className={style.videoIframeWrapper(
+                  rect.width / rect.height > 16 / 9,
+                )}
+              >
+                <iframe
+                  src={`${slide.video.src}`}
+                  title={slide.title}
+                  allow="accelerometer"
+                  allowFullScreen
+                />
+              </div>
             );
           },
         }}

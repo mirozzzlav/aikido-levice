@@ -1,6 +1,6 @@
-import './style.css';
 import React from 'react';
 import PropTypes from 'prop-types';
+import style from './style';
 
 export function LoaderSvg() {
   return (
@@ -30,12 +30,12 @@ export function LoaderSvg() {
   );
 }
 
-export default function Button({ type, label, onClick, loading, className }) {
+export default function Button({ type, label, onClick, loading }) {
   return (
     <button
       type={type === 'submit' ? 'submit' : 'button'}
-      onClick={!loading ? onClick : () => {}}
-      className={`${className}`}
+      onClick={onClick}
+      className={style.formButton(loading)}
     >
       {label}
       {loading === true ? <LoaderSvg /> : null}
@@ -46,12 +46,10 @@ export default function Button({ type, label, onClick, loading, className }) {
 Button.defaultProps = {
   type: 'submit',
   loading: null,
-  className: 'form-button',
 };
 Button.prototype.propTypes = {
   type: PropTypes.string,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf([null])]),
-  className: PropTypes.string,
 };

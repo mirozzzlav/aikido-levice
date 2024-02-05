@@ -1,10 +1,10 @@
 import React from 'react';
-import './style.css';
 import PropTypes from 'prop-types';
+import style from './style';
 
 export default function NewsElement({ label, children }) {
   return (
-    <div className="news-element">
+    <div className={style.newsElement}>
       <h4>{label}</h4>
       <div>{children}</div>
     </div>

@@ -1,24 +1,22 @@
 import React from 'react';
-import './style.css';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Logo from 'src/components/Logo';
+import style from './style';
 
 export default function Navbar({ routes, menuActive, setMenuActive }) {
   return (
-    <nav className={`navbar${menuActive ? ' active' : ''}`}>
-      <div className="navbar-top">
+    <nav className={style.navbar(menuActive)}>
+      <div className={style.navbarTop}>
         <Logo />
-
         {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
         <button
-          className="hamburger"
           type="button"
           onClick={() => setMenuActive((prevActive) => !prevActive)}
         />
       </div>
       <div
-        className="menu-items"
+        aria-description="menuItems"
         aria-hidden="true"
         onClick={(e) => {
           if (e.target.tagName !== 'a') {

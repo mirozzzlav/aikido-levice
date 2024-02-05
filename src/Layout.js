@@ -1,4 +1,4 @@
-import { globalStyle } from 'src/style';
+import { globalStyle as style } from 'src/style';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Global } from '@emotion/react';
@@ -7,7 +7,6 @@ import Logo from 'src/components/Logo';
 import Navbar from 'src/components/Navbar';
 import Page from 'src/components/Page';
 import { WindowContext } from 'src/WindowProvider';
-import { LoaderSvg } from 'src/components/Button';
 
 function Links({ className, routes, leftComponent }) {
   return (
@@ -61,8 +60,8 @@ export default function Layout({ pages }) {
 
   return (
     <>
-      {!pageLoaded ? <div className="main-loader" /> : null}
-      <Global styles={globalStyle} />
+      <Global styles={style} />
+      {!pageLoaded ? <div className={style.mainLoader} /> : null}
       <header>
         <Navbar
           routes={menuRoutes}
@@ -71,11 +70,11 @@ export default function Layout({ pages }) {
         />
       </header>
 
-      <section className={`main-section${menuActive ? ' menu-active' : ''}`}>
+      <section className={style.mainSection(menuActive)}>
         <Page key="home" active={currentPageId === 'home'} />
         <img
-          className="content-img"
-          src="/morihei.svg"
+          className={style.contentImg}
+          src="/ueshiba.svg"
           alt="Morihei Ueshiba"
           style={{ marginTop: '2rem' }}
         />

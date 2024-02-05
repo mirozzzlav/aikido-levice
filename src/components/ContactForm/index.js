@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import './style.css';
-import config from 'src/config';
+import config, { formStates } from 'src/config';
 import Button from 'src/components/Button';
+import style from 'src/components/ContactForm/style';
 
 export async function sendContactFormMail(fromMail, message) {
   const headers = new Headers();
@@ -23,13 +23,6 @@ export async function sendContactFormMail(fromMail, message) {
     .then((resp) => resp)
     .catch((error) => error);
 }
-
-const formStates = {
-  initial: 'initial',
-  loading: 'loading',
-  success: 'success',
-  error: 'error',
-};
 
 const errorMessages = {
   empty: 'Pole je prázdne.',
@@ -85,13 +78,13 @@ export default function ContactForm() {
   }, [validateInputs]);
 
   return (
-    <div className="contact-form">
+    <div>
       <div className="form-info">
         Chcete nám niečo napísať, alebo sa čosi opýtať? Super! Použite náš
         jednoduchý kontaktný formulár nižšie a my sa Vám ozveme. Ďakujeme, že
         nás kontaktujete.
       </div>
-      <div className={`input-group${inputErrors?.mail ? ' error' : ''}`}>
+      <div className={style.inputGroup(inputErrors?.mail)}>
         <input
           type="text"
           value={inputs?.mail || ''}
@@ -100,9 +93,9 @@ export default function ContactForm() {
             setInputs((prevInputs) => ({ ...prevInputs, mail: e.target.value }))
           }
         />
-        <span className="err-msg">{inputErrors?.mail}</span>
+        <span aria-roledescription="input-state">{inputErrors?.mail}</span>
       </div>
-      <div className={`input-group${inputErrors?.message ? ' error' : ''}`}>
+      <div className={style.inputGroup(inputErrors?.message)}>
         <textarea
           placeholder="Správa"
           value={inputs?.message || ''}
@@ -113,20 +106,18 @@ export default function ContactForm() {
             }))
           }
         />
-        <span className="err-msg">{inputErrors?.message}</span>
+        <span aria-roledescription="input-state">{inputErrors?.message}</span>
       </div>
-      {formState === formStates.error ? (
-        <div className="form-result error">
-          {inputErrors === null
-            ? 'Vyskytla si chybička, skúste nás kontaktovať neskôr.'
-            : 'Vyskytla si chybička, skontrolujte si formulár.'}
-        </div>
-      ) : null}
-      {formState === formStates.success ? (
-        <div className="form-result success">
-          Vaša správa k nám dorazila, budeme Vás v blízkej dobe kontaktovať.
-        </div>
-      ) : null}
+      <div className={style.formResult(formState)}>
+        {formState === formStates.error &&
+          inputErrors === null &&
+          'Vyskytla si chybička, skúste nás kontaktovať neskôr.'}
+        {formState === formStates.error &&
+          inputErrors !== null &&
+          'Vyskytla si chybička, skontrolujte si formulár.'}
+        {formState === formStates.success &&
+          'Vaša správa k nám dorazila, budeme Vás v blízkej dobe kontaktovať.'}
+      </div>
       <Button
         type="submit"
         onClick={onSubmit}
