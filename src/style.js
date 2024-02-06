@@ -78,6 +78,7 @@ export const globalStyle = {
       textAlign: 'center',
       fontWeight: 300,
       flexGrow: 1,
+      lineHeight: 'calc(1.15rem * 1.5)',
     },
     'a:hover': {
       textDecoration: 'underline',
@@ -136,7 +137,7 @@ export const globalStyle = {
     marginLeft: 'auto',
     marginRight: 'auto',
     display: 'block',
-    width: '80%',
+    width: '65%',
     maxHeight: '600px',
     maxWidth: '600px',
     objectFit: 'contain',

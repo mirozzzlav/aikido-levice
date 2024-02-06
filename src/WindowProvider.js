@@ -4,23 +4,27 @@ import PropTypes from 'prop-types';
 export const WindowContext = createContext({});
 
 export default function WindowProvider({ children }) {
-  const ref = useRef(null);
+  const effectFiredRef = useRef(null);
   const [contextVal, setContextVal] = useState({});
 
   useEffect(() => {
-    if (!ref.current) {
-      return () => {};
+    if (effectFiredRef.current) {
+      return;
     }
+    effectFiredRef.current = true;
     const setContextValLoaded = () =>
       setContextVal((prev) => ({ ...prev, pageLoaded: true }));
 
+    if (document.readyState === 'complete') {
+      setContextValLoaded();
+      return;
+    }
     window.addEventListener('load', setContextValLoaded);
-    return () => window.removeEventListener('load', setContextValLoaded);
-  }, [ref.current]);
+  }, []);
 
   return (
     <WindowContext.Provider value={contextVal}>
-      <div ref={ref}>{children}</div>
+      <div>{children}</div>
     </WindowContext.Provider>
   );
 }
