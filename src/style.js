@@ -233,15 +233,15 @@ export const globalStyle = {
     flexDirection: 'column',
   }),
   pageWithContent: css({
-    textAlign: 'justify',
-    [mediaQueries.sm]: {
-      textAlign: 'left',
-    },
     margin: '2rem 0 4rem 0',
     'h1, h2': {
       textAlign: 'center',
     },
     p: {
+      textAlign: 'justify',
+      [mediaQueries.sm]: {
+        textAlign: 'left',
+      },
       '&:last-child': {
         marginBottom: 0,
       },
