@@ -79,10 +79,12 @@ export default function ContactForm() {
 
   return (
     <div>
-      <div className="form-info">
+      <div className={style.formInfo}>
         Chcete nám niečo napísať, alebo sa čosi opýtať? Super! Použite náš
-        jednoduchý kontaktný formulár nižšie a my sa Vám ozveme. Ďakujeme, že
-        nás kontaktujete.
+        jednoduchý kontaktný formulár alebo telefonujte trénerovi{' '}
+        <strong>Róbertovi Patayovi</strong> na tel. číslo{' '}
+        <a href="tel:+421905663416">0905 663 416</a>. Ďakujeme, že nás
+        kontaktujete.
       </div>
       <div className={style.inputGroup(inputErrors?.mail)}>
         <input

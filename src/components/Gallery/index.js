@@ -28,26 +28,57 @@ function getImageDimensions(imageUrl) {
 export default function Gallery({ media: mediaFromProps }) {
   const [index, setIndex] = useState(-1);
   const [media, setMedia] = useState([]);
+  const [mediaLightBox, setMediaLightBox] = useState([]);
   useEffect(
     () =>
-      mediaFromProps.forEach(async ({ src, video, extraContent }) => {
-        const { width, height } = await getImageDimensions(src);
-        setMedia((prevMedia) => {
-          if (prevMedia.find(({ src: prevSrc }) => prevSrc === src)) {
-            return prevMedia;
-          }
-          return [
-            ...prevMedia,
-            {
-              src,
-              width,
-              height,
-              video,
-              extraContent,
-            },
-          ];
-        });
-      }),
+      mediaFromProps.forEach(
+        async ({ src, video, extraContent, srcThumb, orderBy }) => {
+          const { width, height } = await getImageDimensions(src);
+          setMedia((prevMedia) => {
+            if (
+              prevMedia.find(
+                ({ src: prevSrc }) => prevSrc === src || prevSrc === srcThumb,
+              )
+            ) {
+              return prevMedia;
+            }
+
+            return [
+              ...prevMedia,
+              {
+                src: srcThumb || src,
+                width,
+                height,
+                video,
+                extraContent,
+                orderBy: orderBy || src,
+              },
+            ].sort(
+              ({ orderBy: orderBy1 }, { orderBy: orderBy2 }) =>
+                orderBy1 - orderBy2,
+            );
+          });
+
+          setMediaLightBox((prevMedia) => {
+            if (prevMedia.find(({ src: prevSrc }) => prevSrc === src)) {
+              return prevMedia;
+            }
+            return [
+              ...prevMedia,
+              {
+                src,
+                width,
+                height,
+                video,
+                orderBy: orderBy || src,
+              },
+            ].sort(
+              ({ orderBy: orderBy1 }, { orderBy: orderBy2 }) =>
+                orderBy1 - orderBy2,
+            );
+          });
+        },
+      ),
     [mediaFromProps],
   );
 
@@ -92,7 +123,7 @@ export default function Gallery({ media: mediaFromProps }) {
       />
 
       <Lightbox
-        slides={media}
+        slides={mediaLightBox}
         open={index >= 0}
         index={index}
         close={() => setIndex(-1)}

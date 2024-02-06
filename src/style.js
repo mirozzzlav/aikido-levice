@@ -7,13 +7,46 @@ export const breakPoints = {
   lg: 1200,
 };
 
-const mediaQueries = Object.fromEntries(
+export const mediaQueries = Object.fromEntries(
   Object.entries(breakPoints).map(([k, bp]) => [
     k,
     `@media (min-width: ${bp}px)`,
   ]),
 );
-
+export const fontFaces = [
+  {
+    '@font-face': {
+      fontFamily: 'Roboto',
+      src: 'url("/fonts/Roboto/Roboto-Thin.ttf") format("truetype")',
+      fontWeight: 300,
+      fontStyle: 'normal',
+    },
+  },
+  {
+    '@font-face': {
+      fontFamily: 'Roboto',
+      src: 'url("/fonts/Roboto/Roboto-Regular.ttf") format("truetype")',
+      fontWeight: 400,
+      fontStyle: 'normal',
+    },
+  },
+  {
+    '@font-face': {
+      fontFamily: 'Roboto',
+      src: 'url("/fonts/Roboto/Roboto-Medium.ttf") format("truetype")',
+      fontWeight: 500,
+      fontStyle: 'normal',
+    },
+  },
+  {
+    '@font-face': {
+      fontFamily: 'Gloria Hallelujah',
+      src: 'url("/fonts/GloriaHallelujah/GloriaHallelujah-Regular.ttf") format("truetype")',
+      fontWeight: 500,
+      fontStyle: 'normal',
+    },
+  },
+];
 export const globalStyle = {
   '*': {
     boxSizing: 'border-box',
@@ -24,10 +57,10 @@ export const globalStyle = {
   },
   ':root': {
     '--content-width': 'auto',
-    '--font-size': '16px',
-    [mediaQueries.md]: {
-      '--font-size': '18px',
-    },
+    '--font-size': '18px',
+    // [mediaQueries.md]: {
+    //   '--font-size': '18px',
+    // },
     [mediaQueries.lg]: {
       '--content-width': '1080px',
     },

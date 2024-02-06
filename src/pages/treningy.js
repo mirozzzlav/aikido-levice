@@ -34,14 +34,14 @@ const treningy = {
       <div className={style.imgsWithCaptions}>
         <div>
           <img
-            src="https://keoyhgevedbrvbysulic.supabase.co/storage/v1/object/public/photos/treneri/robo.jpg"
+            src="https://aikidolevice.sk/photos/treneri/robo.jpg"
             alt="Róbert Patay"
           />
           <span>Róbert Patay</span>
         </div>
         <div>
           <img
-            src="https://keoyhgevedbrvbysulic.supabase.co/storage/v1/object/public/photos/treneri/filip.jpg"
+            src="https://aikidolevice.sk/photos/treneri/filip.jpg"
             alt="Filip Kaszanyoczki"
           />
           <span>Filip Kaszanyoczki</span>

@@ -1,4 +1,4 @@
-import { globalStyle as style } from 'src/style';
+import { fontFaces, globalStyle as style } from 'src/style';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Global } from '@emotion/react';
@@ -60,7 +60,7 @@ export default function Layout({ pages }) {
 
   return (
     <>
-      <Global styles={style} />
+      <Global styles={[style, ...fontFaces]} />
       {!pageLoaded ? <div className={style.mainLoader} /> : null}
       <header>
         <Navbar

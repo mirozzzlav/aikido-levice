@@ -1,4 +1,5 @@
 import { css } from '@emotion/css';
+import { mediaQueries } from 'src/style';
 
 const style = {
   navbarTop: css({
@@ -34,7 +35,11 @@ const style = {
         top: 0,
         left: 0,
         backgroundColor: 'rgba(255,255,255,0.7)',
-        paddingTop: '200px',
+        paddingTop: '140px',
+        [mediaQueries.sm]: {
+          paddingTop: '200px',
+          alignItems: 'flex-start',
+        },
         '> *': {
           display: 'flex',
           flexDirection: 'column',
@@ -48,8 +53,8 @@ const style = {
           display: 'block',
           color: '#000',
           textDecoration: 'none',
-          fontSize: '2.4rem',
-          fontFamily: 'Mynerve, cursive',
+          fontSize: '2rem',
+          fontFamily: "'Gloria Hallelujah', cursive",
           textAlign: 'center',
           '&:hover': {
             color: '#668972 !important',

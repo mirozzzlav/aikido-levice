@@ -41,6 +41,11 @@ const style = {
         resize: 'none',
       },
     }),
+  formInfo: css({
+    strong: {
+      fontWeight: 500,
+    },
+  }),
   formResult: (state) =>
     css({
       padding: '2rem',

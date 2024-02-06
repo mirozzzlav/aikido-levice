@@ -29,8 +29,8 @@ export default function Logo({ color, width, height }) {
 }
 
 Logo.defaultProps = {
-  width: '6rem',
-  height: '6rem',
+  width: '5rem',
+  height: '5rem',
   color: '#000',
 };
 
