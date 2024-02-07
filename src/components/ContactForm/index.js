@@ -81,7 +81,7 @@ export default function ContactForm() {
     <div>
       <p className={style.formInfo}>
         Chcete nám niečo napísať, alebo sa čosi opýtať? Super! Použite náš
-        jednoduchý kontaktný formulár alebo volajte trénerovi{' '}
+        jednoduchý kontaktný formulár, alebo volajte trénerovi{' '}
         <strong>Róbertovi Patayovi</strong> na tel. číslo{' '}
         <a href="tel:+421905663416">0905 663 416</a>. Ďakujeme, že nás
         kontaktujete.
