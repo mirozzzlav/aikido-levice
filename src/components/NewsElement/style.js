@@ -2,7 +2,6 @@ import { css } from '@emotion/css';
 
 const style = {
   newsElement: css({
-    padding: '0.4rem 0',
     '> *': {
       fontWeight: 300,
     },

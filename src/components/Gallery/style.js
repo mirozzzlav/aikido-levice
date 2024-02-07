@@ -3,8 +3,17 @@ import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
 const style = {
+  galleryWrapper: css({
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '1rem',
+  }),
   thumbWrapper: css({
+    width: '140px',
+    cursor: 'pointer',
     img: {
+      width: '100%',
+      aspectRatio: 1,
       margin: '0 !important',
       objectFit: 'cover',
       borderRadius: '8px',
@@ -13,10 +22,6 @@ const style = {
         boxShadow: '0px 0px 30px 0px rgba(0,0,0,0.2)',
       },
     },
-  }),
-  mediaExtraContent: css({
-    margin: '0rem 0.2rem',
-    fontSize: '0.9rem',
   }),
   videoThumb: css({
     position: 'relative',
@@ -44,7 +49,7 @@ const style = {
       fill: '#fff !important',
     },
   }),
-  videoIframeWrapper: (long) =>
+  videoIframeWrapper: (ratio) =>
     css({
       width: '100%',
       height: '100%',
@@ -68,8 +73,8 @@ const style = {
         border: 0,
         width: '100%',
         minWidth: '300px',
-        aspectRatio: '16/9',
-        ...(long
+        aspectRatio: ratio > 1 ? '16/9' : ratio,
+        ...(ratio > 16 / 9
           ? { width: 'auto', height: '100%', maxHeight: '800px' }
           : null),
         position: 'relative',

@@ -10,6 +10,8 @@ const galeria = {
       media={[
         {
           src: 'https://aikidolevice.sk/photos/1.jpg',
+          width: 853,
+          height: 1280,
           srcThumb: 'https://aikidolevice.sk/photos/thumbs/1.jpg',
         },
         {

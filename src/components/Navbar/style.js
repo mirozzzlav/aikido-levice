@@ -28,7 +28,7 @@ const style = {
       },
 
       '[aria-description="menuItems"]': {
-        ...(!active && { transform: 'translateY(-150%)' }),
+        ...(!active && { transform: 'translateY(-200%)' }),
         position: 'fixed',
         width: '100vw',
         height: '100vh',

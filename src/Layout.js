@@ -59,7 +59,7 @@ export default function Layout({ pages }) {
   useEffect(() => setMenuActive(false), [pathname]);
 
   return (
-    <>
+    <div className={style.container}>
       <Global styles={[style, ...fontFaces]} />
       {!pageLoaded ? <div className={style.mainLoader} /> : null}
       <header>
@@ -69,14 +69,17 @@ export default function Layout({ pages }) {
           setMenuActive={setMenuActive}
         />
       </header>
-
       <section className={style.mainSection(menuActive)}>
-        <Page key="home" active={currentPageId === 'home'} />
-        <img
-          className={style.contentImg}
-          src="/ueshiba.svg"
-          alt="Morihei Ueshiba"
-          style={{ marginTop: '2rem' }}
+        <Page
+          key="home"
+          active={currentPageId === 'home'}
+          content={
+            <img
+              className={style.contentImg}
+              src="/ueshiba.svg"
+              alt="Morihei Ueshiba"
+            />
+          }
         />
 
         {pages.map(
@@ -91,14 +94,14 @@ export default function Layout({ pages }) {
               />
             ),
         )}
+        <footer>
+          <Links
+            routes={menuRoutes}
+            leftComponent={<Logo width="4rem" height="4rem" color="#fff" />}
+          />
+        </footer>
       </section>
-      <footer>
-        <Links
-          routes={menuRoutes}
-          leftComponent={<Logo width="4rem" height="4rem" color="#fff" />}
-        />
-      </footer>
-    </>
+    </div>
   );
 }
 

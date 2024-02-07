@@ -71,6 +71,12 @@ export const globalStyle = {
     margin: '0',
     backgroundColor: '#fff',
   },
+  container: css({
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+    overflowY: 'scroll',
+  }),
   h1: {
     fontFamily: "'Gloria Hallelujah', cursive",
     margin: '0rem 0 2rem 0',
@@ -159,12 +165,14 @@ export const globalStyle = {
     backgroundRepeat: 'no-repeat',
   }),
   header: {
-    position: 'sticky',
+    position: 'relative',
     zIndex: 100,
     top: 0,
+    left: 0,
     boxShadow: '10px 10px 10px 0px rgba(0,0,0,0.05)',
     backgroundColor: '#ffffff',
     padding: '0.8rem 0',
+    flexGrow: 0,
   },
   contentImg: css({
     marginLeft: 'auto',
@@ -181,10 +189,9 @@ export const globalStyle = {
   }),
   mainSection: (active) =>
     css({
-      maxWidth: 'var(--content-width)',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      padding: '0 2rem',
+      overflowY: 'scroll',
+      padding: 0,
+      flexGrow: 1,
       ...(active && { filter: 'blur(20px)' }),
     }),
   footer: {
@@ -227,13 +234,12 @@ export const globalStyle = {
     },
   },
   page: css({
-    scrollMarginTop: '150px',
+    maxWidth: 'var(--content-width)',
     minHeight: '1px',
     display: 'flex',
     flexDirection: 'column',
-  }),
-  pageWithContent: css({
-    margin: '2rem 0 4rem 0',
+    margin: '0 auto',
+    padding: '2rem 2rem 0rem 2rem',
     'h1, h2': {
       textAlign: 'center',
     },

@@ -9,14 +9,16 @@ import pages from 'src/pages';
 import WindowProvider from 'src/WindowProvider';
 
 function App() {
-  const page = <Layout pages={pages} />;
-
   return (
     <WindowProvider>
       <BrowserRouter>
         <RoutesReactDom>
           {pages.map(({ id, route }) => (
-            <ReactRoute key={id} element={page} path={route} />
+            <ReactRoute
+              key={id}
+              element={<Layout pages={pages} />}
+              path={route}
+            />
           ))}
         </RoutesReactDom>
       </BrowserRouter>

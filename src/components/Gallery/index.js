@@ -1,129 +1,74 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import PhotoAlbum from 'react-photo-album';
 import Lightbox from 'yet-another-react-lightbox';
 import { Thumbnails, Fullscreen } from 'yet-another-react-lightbox/plugins';
 
-import { cx, css } from '@emotion/css';
-import { breakPoints } from 'src/style';
 import style from 'src/components/Gallery/style';
-import config from 'src/config';
 
-function getImageDimensions(imageUrl) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.src = imageUrl;
-
-    img.onload = function () {
-      resolve({ width: img.width, height: img.height });
-    };
-
-    img.onerror = function () {
-      reject(new Error('Error loading the image. Please check the URL.'));
-    };
-  });
-}
-
-export default function Gallery({ media: mediaFromProps }) {
-  const [index, setIndex] = useState(-1);
-  const [media, setMedia] = useState([]);
-  const [mediaLightBox, setMediaLightBox] = useState([]);
-  useEffect(
-    () =>
-      mediaFromProps.forEach(
-        async ({ src, video, extraContent, srcThumb, orderBy }) => {
-          const { width, height } = await getImageDimensions(src);
-          setMedia((prevMedia) => {
-            if (
-              prevMedia.find(
-                ({ src: prevSrc }) => prevSrc === src || prevSrc === srcThumb,
-              )
-            ) {
-              return prevMedia;
-            }
-
-            return [
-              ...prevMedia,
-              {
-                src: srcThumb || src,
-                width,
-                height,
-                video,
-                extraContent,
-                orderBy: orderBy || src,
-              },
-            ].sort(
-              ({ orderBy: orderBy1 }, { orderBy: orderBy2 }) =>
-                orderBy1 - orderBy2,
-            );
-          });
-
-          setMediaLightBox((prevMedia) => {
-            if (prevMedia.find(({ src: prevSrc }) => prevSrc === src)) {
-              return prevMedia;
-            }
-            return [
-              ...prevMedia,
-              {
-                src,
-                width,
-                height,
-                video,
-                orderBy: orderBy || src,
-              },
-            ].sort(
-              ({ orderBy: orderBy1 }, { orderBy: orderBy2 }) =>
-                orderBy1 - orderBy2,
-            );
-          });
-        },
-      ),
-    [mediaFromProps],
+function MediaElement({ src, video, extraContent, onClick }) {
+  return (
+    <div
+      className={style.thumbWrapper}
+      onClick={onClick}
+      tabIndex={0}
+      onKeyDown={() => {}}
+      role="button"
+    >
+      {video ? (
+        <div className={style.videoThumb}>
+          <img src={src} alt="Video" />
+        </div>
+      ) : (
+        <img src={src} alt="Fotka" />
+      )}
+      {extraContent}
+    </div>
   );
+}
+MediaElement.defaultProps = {
+  video: null,
+  extraContent: null,
+};
+
+MediaElement.prototype.propTypes = {
+  src: PropTypes.string.isRequired,
+  video: PropTypes.oneOfType([
+    PropTypes.shape({ src: PropTypes.string }),
+    PropTypes.oneOf([null]),
+  ]),
+  extraContent: PropTypes.oneOfType([PropTypes.node, PropTypes.oneOf([null])]),
+  onClick: PropTypes.func.isRequired,
+};
+
+export default function Gallery({ media }) {
+  const [index, setIndex] = useState(-1);
 
   return (
     <>
-      <PhotoAlbum
-        spacing={parseInt(config.gallery.spacing, 10)}
-        photos={media}
-        layout="masonry"
-        columns={(containerWidth) =>
-          containerWidth > breakPoints.xs ? Math.floor(containerWidth / 200) : 2
-        }
-        onClick={({ index: indexToBeSet }) => setIndex(indexToBeSet)}
-        renderPhoto={({
-          wrapperStyle,
-          renderDefaultPhoto,
-          photo: { video, src },
-        }) => {
-          const { extraContent } = Object.values(media).find(
-            ({ src: currentSrc }) => src === currentSrc,
-          );
-          return (
-            <div
-              className={cx(
-                style.thumbWrapper,
-                css({ marginBottom: config.gallery.spacing }),
-              )}
-            >
-              {video ? (
-                <div className={cx(css(wrapperStyle), style.videoThumb)}>
-                  {renderDefaultPhoto({ wrapped: true })}
-                </div>
-              ) : (
-                renderDefaultPhoto()
-              )}
-              {extraContent ? (
-                <div className={style.mediaExtraContent}>{extraContent}</div>
-              ) : null}
-            </div>
-          );
-        }}
-      />
-
+      <div className={style.galleryWrapper}>
+        {media
+          .sort((m1, m2) =>
+            m1.orderBy && m2.orderBy
+              ? m1.orderBy - m2.orderBy
+              : m1.src.localeCompare(m2.src),
+          )
+          .map(({ src, video, extraContent, srcThumb }, currentIndex) => (
+            <MediaElement
+              key={src}
+              extraContent={extraContent}
+              src={srcThumb || src}
+              video={video}
+              onClick={() => setIndex(currentIndex)}
+            />
+          ))}
+      </div>
       <Lightbox
-        slides={mediaLightBox}
+        slides={media.sort((m1, m2) =>
+          m1.orderBy && m2.orderBy
+            ? m1.orderBy - m2.orderBy
+            : m1.src.localeCompare(m2.src),
+        )}
         open={index >= 0}
         index={index}
         close={() => setIndex(-1)}
@@ -131,14 +76,13 @@ export default function Gallery({ media: mediaFromProps }) {
         className={style.lightBoxRoot}
         render={{
           slide: ({ slide, rect }) => {
+            console.log(slide);
             if (!slide.video) {
               return null;
             }
             return (
               <div
-                className={style.videoIframeWrapper(
-                  rect.width / rect.height > 16 / 9,
-                )}
+                className={style.videoIframeWrapper(rect.width / rect.height)}
               >
                 <iframe
                   src={`${slide.video.src}`}

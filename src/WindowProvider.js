@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { checkImagesLoaded, waitForImages } from 'src/helpers';
 
 export const WindowContext = createContext({});
 
@@ -12,14 +13,13 @@ export default function WindowProvider({ children }) {
       return;
     }
     effectFiredRef.current = true;
-    const setContextValLoaded = () =>
+    const setContextValLoaded = () => {
       setContextVal((prev) => ({ ...prev, pageLoaded: true }));
+    };
 
-    if (document.readyState === 'complete') {
-      setContextValLoaded();
-      return;
-    }
-    window.addEventListener('load', setContextValLoaded);
+    waitForImages(document.querySelectorAll('img')).then(() => {
+      setContextValLoaded(true);
+    });
   }, []);
 
   return (

@@ -12,10 +12,10 @@ const galeria = {
         {
           src: 'https://aikidolevice.sk/photos/novinky/1.jpg?rand=123',
           srcThumb: 'https://aikidolevice.sk/photos/novinky/thumbs/1.jpg',
-          orderBy: new Date('04-06-2024'),
+          orderBy: new Date('2024-04-06'),
           extraContent: (
             <NewsElement label="6.4.2023">
-              Seminár aikido pre deti
+              Seminár aikido pre&nbsp;deti
               <br />
               Holíč (SK)
             </NewsElement>
@@ -24,7 +24,7 @@ const galeria = {
         {
           src: 'https://aikidolevice.sk/photos/novinky/2.jpg',
           srcThumb: 'https://aikidolevice.sk/photos/novinky/thumbs/2.jpg',
-          orderBy: new Date('04-20-2024'),
+          orderBy: new Date('2024-04-20'),
           extraContent: (
             <NewsElement label="20. - 21.4.2024">
               Asociačný seminár
@@ -36,7 +36,7 @@ const galeria = {
         {
           src: 'https://aikidolevice.sk/photos/novinky/3.jpg',
           srcThumb: 'https://aikidolevice.sk/photos/novinky/thumbs/3.jpg',
-          orderBy: new Date('06-07-2024'),
+          orderBy: new Date('2024-06-07'),
           extraContent: (
             <NewsElement label="7. - 9.6.2024">
               30. Výročie SAA
@@ -51,7 +51,7 @@ const galeria = {
           video: {
             src: 'https://www.youtube.com/embed/ACUvGEqU90g',
           },
-          orderBy: new Date('03-16-2024'),
+          orderBy: new Date('2023-03-16'),
           extraContent: (
             <NewsElement label="16. 3. 2024">
               Seminár SAA

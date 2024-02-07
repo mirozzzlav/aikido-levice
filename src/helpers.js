@@ -12,6 +12,32 @@ const getSKDate = (date) => {
   return slovakDateString;
 };
 
-const dummyFunc = () => {};
+const checkImagesLoaded = (images) => {
+  let allLoaded = true;
 
-export { getSKDate, dummyFunc };
+  images.forEach((img) => {
+    if (!img.complete) {
+      allLoaded = false;
+    }
+  });
+
+  return allLoaded;
+};
+
+const waitForImages = (images) =>
+  new Promise((resolve) => {
+    images.forEach((img) => {
+      if (!img.complete) {
+        img.addEventListener('load', () => {
+          if (checkImagesLoaded(images)) {
+            resolve();
+          }
+        });
+        return;
+      }
+      if (checkImagesLoaded(images)) {
+        resolve();
+      }
+    });
+  });
+export { getSKDate, checkImagesLoaded, waitForImages };

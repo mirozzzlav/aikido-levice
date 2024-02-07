@@ -18,13 +18,9 @@ export default function Page({ headline, content, active }) {
     });
   }, [active, pageLoaded]);
 
-  if (!content) {
-    return <div ref={ref} className={style.page} />;
-  }
-
   return (
-    <div className={cx(style.page, style.pageWithContent)} ref={ref}>
-      <h1>{headline}</h1>
+    <div className={style.page} ref={ref}>
+      {headline && <h1>{headline}</h1>}
       {content}
     </div>
   );

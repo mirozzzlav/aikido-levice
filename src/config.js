@@ -7,9 +7,6 @@ const config = {
     serviceId: 'service_4xfc74g',
     publicKey: 'SeoE35BedqrB4LK-w',
   },
-  gallery: {
-    spacing: '26px',
-  },
 };
 
 export const formStates = {
