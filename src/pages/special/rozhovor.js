@@ -20,7 +20,7 @@ export default function Rozhovor() {
         <div>
           Odpoveď znie: Aikido. Význam slova Aikido móžeme preložiť ako cesta
           harmónie ducha (ai — harmónia. jednota; ki — energia, duch; do cesta).
-          Jeho zakladaterom bol Japonec Mori-hei Uešiba a hlavnou myšlienkou je
+          Jeho zakladatelom bol Japonec Morihei Uešiba a hlavnou myšlienkou je
           neagresivita, ktorá vníma boj len ako poslednú formu riešenia
           konfliktov. Na rozdiel od ostatných bojových umení má Aikido chránit
           zdravie nielen obrancu, ale aj útočnika. úlohou Aikida je rozvíjať
@@ -45,7 +45,7 @@ export default function Rozhovor() {
           Filmy s tematikou bojových umení prispeli k spropagovaniu a
           masovejšiemu rozšireniu bojových umení po celom svete. Uvedené mená —
           to nie sú len dobri herci, ale aj veľkí bojovníci. Aikido by som
-          charakterizoval slovami jeho zakladatefa Mori-heia Uešibu:
+          charakterizoval slovami jeho zakladatela Moriheia Uešibu:
           &quot;Súťažiť v technikách, vyhrávať a prehrávať, to nie je pravé budó
           (= bojové umenie). Skutočné budó nepozná porážku. Nebyť nikdy porazený
           znamená nikdy nebojovať.&quot;
