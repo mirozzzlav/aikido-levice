@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { cx } from '@emotion/css';
 import PropTypes from 'prop-types';
-import { WindowContext } from 'src/WindowProvider';
+import { LoaderContext } from 'src/LoaderProvider';
 import { globalStyle as style } from 'src/style';
 
 export default function Page({ headline, content, active }) {
   const ref = useRef(null);
-  const { pageLoaded } = useContext(WindowContext);
+  const pageLoaded = useContext(LoaderContext);
 
   useEffect(() => {
     if (!active || !pageLoaded) {

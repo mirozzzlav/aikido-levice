@@ -6,7 +6,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import Logo from 'src/components/Logo';
 import Navbar from 'src/components/Navbar';
 import Page from 'src/components/Page';
-import { WindowContext } from 'src/WindowProvider';
+import { LoaderContext } from 'src/LoaderProvider';
 
 function Links({ className, routes, leftComponent }) {
   return (
@@ -39,7 +39,7 @@ Links.prototype.propTypes = {
 export default function Layout({ pages }) {
   const { pathname } = useLocation();
   const [menuActive, setMenuActive] = useState(false);
-  const { pageLoaded } = useContext(WindowContext);
+  const { pageLoaded } = useContext(LoaderContext);
 
   const currentPageId = useMemo(
     () => pathname.substring(1) || 'home',

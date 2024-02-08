@@ -6,11 +6,13 @@ import {
 } from 'react-router-dom';
 import Layout from 'src/Layout';
 import pages from 'src/pages';
-import WindowProvider from 'src/WindowProvider';
+import LoaderProvider from 'src/LoaderProvider';
+import BlankLayout from 'src/BlankLayout';
+import Rozhovor from 'src/pages/special/rozhovor';
 
 function App() {
   return (
-    <WindowProvider>
+    <LoaderProvider>
       <BrowserRouter>
         <RoutesReactDom>
           {pages.map(({ id, route }) => (
@@ -20,9 +22,17 @@ function App() {
               path={route}
             />
           ))}
+          <ReactRoute
+            element={
+              <BlankLayout>
+                <Rozhovor />
+              </BlankLayout>
+            }
+            path="/rozhovor-robo"
+          />
         </RoutesReactDom>
       </BrowserRouter>
-    </WindowProvider>
+    </LoaderProvider>
   );
 }
 

@@ -75,7 +75,7 @@ export const globalStyle = {
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',
-    overflowY: 'scroll',
+    overflowY: 'hidden',
   }),
   h1: {
     fontFamily: "'Gloria Hallelujah', cursive",
@@ -100,14 +100,14 @@ export const globalStyle = {
     margin: 0,
     padding: 0,
   },
-  infoColsWrapper: css({
+  infoWrapper: css({
     margin: '0rem 0 1rem 0',
     display: 'flex',
     gap: '1rem',
     flexWrap: 'wrap',
     justifyContent: 'center',
   }),
-  infoCols: css({
+  info: css({
     background: '#fff',
     boxShadow: '10px 10px 10px 0px rgba(0,0,0,0.03)',
     border: '1px solid #00000018',
@@ -172,7 +172,6 @@ export const globalStyle = {
     boxShadow: '10px 10px 10px 0px rgba(0,0,0,0.05)',
     backgroundColor: '#ffffff',
     padding: '0.8rem 0',
-    flexGrow: 0,
   },
   contentImg: css({
     marginLeft: 'auto',
@@ -191,7 +190,6 @@ export const globalStyle = {
     css({
       overflowY: 'scroll',
       padding: 0,
-      flexGrow: 1,
       ...(active && { filter: 'blur(20px)' }),
     }),
   footer: {
@@ -252,5 +250,37 @@ export const globalStyle = {
         marginBottom: 0,
       },
     },
+  }),
+
+  blankContainer: css({
+    header: {
+      '> *': {
+        width: 'var(--content-width)',
+        padding: '0 2rem',
+        margin: '0 auto',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      },
+    },
+    section: {
+      width: 'var(--content-width)',
+      padding: '2rem 2rem',
+      margin: '0 auto',
+      'article > div': {
+        margin: '2rem 0',
+        '> :nth-child(1)': {
+          fontWeight: 600,
+          marginBottom: '0.3rem',
+        },
+        '> :nth-child(2)': {
+          fontWeight: 400,
+        },
+      },
+    },
+  }),
+  infoBox: css({
+    borderBottom: '1px dashed #000',
+    padding: '0rem 0rem 1.5rem 0rem',
   }),
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { globalStyle as style } from 'src/style';
+import { Link } from 'react-router-dom';
 
 const page = {
   id: 'o-aikide',
@@ -45,6 +46,9 @@ const page = {
         Aikida (IAF), na ktorej sa konala každé štyri roky valná hromada
         federácie. V roku 1984 sa Medzinárodná federácia Aikida oficiálne stala
         členom Všeobecnej asociácie medzinárodných športových federácií (GAISF).
+        Viac o Aikide sa môžete dozvedieť aj&nbsp;v&nbsp;
+        <Link to="/rozhovor-robo">rozhovore</Link>&nbsp;s Róberom Patayom -
+        trénerom Aikido Dojo Levice.
       </p>
     </>
   ),

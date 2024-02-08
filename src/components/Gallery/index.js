@@ -76,7 +76,6 @@ export default function Gallery({ media }) {
         className={style.lightBoxRoot}
         render={{
           slide: ({ slide, rect }) => {
-            console.log(slide);
             if (!slide.video) {
               return null;
             }
