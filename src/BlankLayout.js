@@ -19,7 +19,13 @@ export default function BlankLayout({ children }) {
           <Link to="/">&#x293A;&nbsp;Späť</Link>
         </div>
       </header>
-      <section>{children}</section>
+      <section>
+        {children}
+        <Link to="/">
+          <span style={{ filter: 'grayscale(1)' }}>&#127968;</span>&nbsp;Hlavná
+          stránka
+        </Link>
+      </section>
     </div>
   );
 }
