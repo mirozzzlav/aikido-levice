@@ -13,7 +13,7 @@ export default function Rozhovor() {
       <div className={style.infoBox}>
         <div>
           Uhádnete túto hádanku? Cvičí sa pri tom, ale nie je to klasický šport.
-          Patri to medzi bojové umenia, ale vyznáva princíp nebojovnosti.
+          Patrí to medzi bojové umenia, ale vyznáva princíp nebojovnosti.
           Čo&nbsp;to&nbsp;je?
         </div>
 
@@ -22,8 +22,8 @@ export default function Rozhovor() {
           harmónie ducha (ai — harmónia. jednota; ki — energia, duch; do cesta).
           Jeho zakladaterom bol Japonec Mori-hei Uešiba a hlavnou myšlienkou je
           neagresivita, ktorá vníma boj len ako poslednú formu riešenia
-          konfliktov. Na rozdiel od ostatných bojových umeni má Aikido chránit
-          zdravie nielen obrancu, ale aj útočnika. úlohou Aikida je rozvíjaf
+          konfliktov. Na rozdiel od ostatných bojových umení má Aikido chránit
+          zdravie nielen obrancu, ale aj útočnika. úlohou Aikida je rozvíjať
           cvičiaceho jedinca po fyzickej aj psychickej stránke. Vraví sa, že
           najlepši spôsob, ako sa niečo o Aikide dozvedieť, je začať ho
           praklizovať — potom ho vnímate vlastným telom a mysľou. A tak som sa
@@ -88,15 +88,15 @@ export default function Rozhovor() {
         </div>
 
         <div>
-          Začiatky boli piné entuziazmu, bolo to po nežnej revolúcii, bolo to
+          Začiatky boli plné entuziazmu, bolo to po nežnej revolúcii, bolo to
           niečo nové. Možno ako znamenie lev som dosť náročný na seba (a asi aj
-          na svojich blizkych — to nech posúdia ini), tak som cvičil bojové
+          na svojich blizkych — to nech posúdia iní), tak som cvičil bojové
           umenia štyrikrát do týždňa 2 až 4 hodiny denne, plus vikendové
           semináre. Dnes je to nepredstaviteľné, ale ja som bol na tréningu aj
           večer pred štátnicami, čiže som sa snažil nevynechať žiaden tréning.
           Dnes ľudia vynechávajú tréningy pre úplne banálne záležitosti, česť
-          výnimkám. Trénerom sa môže žiak stať vefmi rýchlo, po roku až dvoch
-          intenzívneho cvičenia má žiak už tofko informácii, že môže viesť
+          výnimkám. Trénerom sa môže žiak stať veľmi rýchlo, po roku až dvoch
+          intenzívneho cvičenia má žiak už toľko informácii, že môže viesť
           tréning. Kedy sa stane žiak majstrom, je veľmi ťažké povedať, toto je
           individuálne. Ak sa tréner necháva oslovovať majster, môže to zaváňať
           egoizmom. Ja sa považujem stále za žiaka, učim sa denne nové veci v
@@ -135,7 +135,7 @@ export default function Rozhovor() {
         </div>
         <div>
           Ak niekto chce naozaj rýchlo zaútočiť, musí byť uvolnený, a keď sa
-          niekto chce ubrániť, tiež musi byť rýchly a tým pádom uvoľnený. Čo je
+          niekto chce ubrániť, tiež musí byť rýchly a tým pádom uvoľnený. Čo je
           najdôležitejšie, cvičiaci musia vytvoriť jednu energiu čiže harmóniu.
           Tanec je tiež o harmónii, preto vyvoláva radosť v tancujúcich a aj v
           prizerajúcich sa.
@@ -157,7 +157,7 @@ export default function Rozhovor() {
           v zdvorilostnom duchu. Ako to treba chápať?
         </div>
         <div>
-          Nazvali ste to presne, cvičí sa s partnerom a nie s protivnikom. Z
+          Nazvali ste to presne, cvičí sa s partnerom a nie s protivníkom. Z
           toho vyplýva aj odpoveď, prečo majú z cvičenia radosť obaja cvičenci.
           Dokonca je to chytľavé — prenesie sa to aj na toho, kto sa iba pozerá.
           Ale tam to nekončí, tá pozitívna energie ide ďalej, ľudia si ju vezmú
