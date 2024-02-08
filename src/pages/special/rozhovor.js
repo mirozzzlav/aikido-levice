@@ -4,7 +4,13 @@ import React from 'react';
 export default function Rozhovor() {
   return (
     <article>
-      <h1 style={{ marginBottom: '0rem', fontFamily: 'Roboto' }}>
+      <h1
+        style={{
+          marginBottom: '0rem',
+          lineHeight: 1.3,
+          fontFamily: 'Roboto',
+        }}
+      >
         Cesta duševnej harmónie
       </h1>
       <h4 style={{ margin: 0 }}>
