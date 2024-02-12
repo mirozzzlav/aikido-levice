@@ -1,20 +1,17 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Logo from 'src/components/Logo';
 import style from './style';
 
-export default function Navbar({ routes, menuActive, setMenuActive }) {
+export default function BurgerMenu({ routes, menuActive, setMenuActive }) {
   return (
-    <nav className={style.navbar(menuActive)}>
-      <div className={style.navbarTop}>
-        <Logo />
-        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-        <button
-          type="button"
-          onClick={() => setMenuActive((prevActive) => !prevActive)}
-        />
-      </div>
+    <nav className={style.burgerMenu(menuActive)}>
+      {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+      <button
+        type="button"
+        onClick={() => setMenuActive((prevActive) => !prevActive)}
+      />
+
       <div
         aria-description="menuItems"
         aria-hidden="true"
@@ -34,7 +31,7 @@ export default function Navbar({ routes, menuActive, setMenuActive }) {
   );
 }
 
-Navbar.prototype.propTypes = {
+BurgerMenu.prototype.propTypes = {
   routes: PropTypes.arrayOf(
     PropTypes.shape({ route: PropTypes.string, label: PropTypes.string }),
   ).isRequired,

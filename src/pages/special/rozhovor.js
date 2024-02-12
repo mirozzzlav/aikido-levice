@@ -1,9 +1,27 @@
-import { globalStyle as style } from 'src/style';
 import React from 'react';
+import { css } from '@emotion/css';
 
+const style = {
+  article: css({
+    '> div': {
+      margin: '2rem 0',
+      '> :nth-child(1)': {
+        fontWeight: 600,
+        marginBottom: '0.3rem',
+      },
+      '> :nth-child(2)': {
+        fontWeight: 400,
+      },
+    },
+  }),
+  infoBox: css({
+    borderBottom: '1px dashed #000',
+    padding: '0rem 0rem 1.5rem 0rem',
+  }),
+};
 export default function Rozhovor() {
   return (
-    <article>
+    <article className={style.article}>
       <h1
         style={{
           marginBottom: '0rem',

@@ -47,6 +47,13 @@ export const fontFaces = [
     },
   },
 ];
+
+const contentStyle = (paddingTop = false) => ({
+  margin: '0 auto',
+  width: 'var(--content-width)',
+  padding: `${paddingTop ? '2rem' : 0} 2rem 0 2rem`,
+});
+
 export const globalStyle = {
   '*': {
     boxSizing: 'border-box',
@@ -71,12 +78,6 @@ export const globalStyle = {
     margin: '0',
     backgroundColor: '#fff',
   },
-  container: css({
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100vh',
-    overflowY: 'hidden',
-  }),
   h1: {
     fontFamily: "'Gloria Hallelujah', cursive",
     margin: '0rem 0 2rem 0',
@@ -186,58 +187,10 @@ export const globalStyle = {
       marginBottom: 0,
     },
   }),
-  mainSection: (active) =>
-    css({
-      overflowY: 'scroll',
-      padding: 0,
-      ...(active && { filter: 'blur(20px)' }),
-    }),
-  footer: {
-    background: '#9abea6',
-    '--mask':
-      'conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) 50%/15.00px 100%;   -webkit-mask: var(--mask)',
-    mask: 'var(--mask)',
-    color: '#fff',
-    padding: '2rem',
-    marginTop: '4rem',
-    display: 'flex',
-    justifyContent: 'center',
-    '> nav': {
-      marginTop: '15px',
-      display: 'flex',
-      gap: '1.2rem',
-      [mediaQueries.sm]: {
-        gap: '3rem',
-      },
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexWrap: 'wrap',
-      '> *': {
-        width: '300px',
-        [mediaQueries.sm]: {
-          width: 'auto',
-        },
-        display: 'flex',
-        justifyContent: 'center',
-      },
-    },
-    'a.link': {
-      color: 'rgb(245, 249, 246)',
-      fontWeight: '500',
-      paddingBottom: '2px',
-      borderBottom: '2px solid transparent',
-    },
-    'a.link:hover, a.link.active': {
-      borderBottom: '2px solid rgb(245, 249, 246)',
-    },
-  },
   page: css({
-    maxWidth: 'var(--content-width)',
     minHeight: '1px',
     display: 'flex',
     flexDirection: 'column',
-    margin: '0 auto',
-    padding: '2rem 2rem 0rem 2rem',
     'h1, h2': {
       textAlign: 'center',
     },
@@ -252,35 +205,82 @@ export const globalStyle = {
     },
   }),
 
-  blankContainer: css({
-    header: {
-      '> *': {
-        width: 'var(--content-width)',
-        padding: '0 2rem',
-        margin: '0 auto',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      },
-    },
-    section: {
-      width: 'var(--content-width)',
-      padding: '2rem 2rem',
-      margin: '0 auto',
-      'article > div': {
-        margin: '2rem 0',
-        '> :nth-child(1)': {
-          fontWeight: 600,
-          marginBottom: '0.3rem',
-        },
-        '> :nth-child(2)': {
-          fontWeight: 400,
+  pagesContainer: css({
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+    overflowY: 'hidden',
+  }),
+
+  container: (active = true) =>
+    css({
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+
+      header: {
+        '> *': {
+          ...contentStyle(),
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         },
       },
-    },
-  }),
-  infoBox: css({
-    borderBottom: '1px dashed #000',
-    padding: '0rem 0rem 1.5rem 0rem',
-  }),
+      section: {
+        flexGrow: 1,
+        ...(!active && { filter: 'blur(20px)' }),
+        overflow: 'auto',
+        '> *': {
+          ...contentStyle(true),
+        },
+      },
+      footer: {
+        background: '#9abea6',
+        '--mask':
+          'conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) 50%/15.00px 100%;   -webkit-mask: var(--mask)',
+        mask: 'var(--mask)',
+        width: 'auto',
+        color: '#fff',
+        padding: '2rem',
+        marginTop: '4rem',
+        '> div': {
+          ...contentStyle(),
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          gap: '2rem',
+          alignItems: 'center',
+          [mediaQueries.sm]: {
+            flexDirection: 'row',
+          },
+        },
+        nav: {
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '1.22rem',
+          justifyContent: 'center',
+          alignItems: 'center',
+          [mediaQueries.sm]: {
+            gap: '2rem',
+          },
+          '> *': {
+            width: '100%',
+            [mediaQueries.sm]: {
+              width: 'auto',
+            },
+            display: 'flex',
+            justifyContent: 'center',
+          },
+        },
+        'a.link': {
+          color: 'rgb(245, 249, 246)',
+          fontWeight: '500',
+          paddingBottom: '2px',
+          borderBottom: '2px solid transparent',
+        },
+        'a.link:hover, a.link.active': {
+          borderBottom: '2px solid rgb(245, 249, 246)',
+        },
+      },
+    }),
 };

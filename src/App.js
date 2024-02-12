@@ -1,14 +1,15 @@
 import React from 'react';
 import {
   BrowserRouter,
+  Link,
   Route as ReactRoute,
   Routes as RoutesReactDom,
 } from 'react-router-dom';
-import Layout from 'src/Layout';
+import PagesLayout from 'src/PagesLayout';
 import pages from 'src/pages';
 import LoaderProvider from 'src/LoaderProvider';
-import BlankLayout from 'src/BlankLayout';
 import Rozhovor from 'src/pages/special/rozhovor';
+import Layout from 'src/Layout';
 
 function App() {
   return (
@@ -18,15 +19,16 @@ function App() {
           {pages.map(({ id, route }) => (
             <ReactRoute
               key={id}
-              element={<Layout pages={pages} />}
+              element={<PagesLayout pages={pages} />}
               path={route}
             />
           ))}
           <ReactRoute
             element={
-              <BlankLayout>
-                <Rozhovor />
-              </BlankLayout>
+              <Layout
+                header={<Link to="/">&#x293A;&nbsp;Späť</Link>}
+                body={<Rozhovor />}
+              />
             }
             path="/rozhovor-robo"
           />

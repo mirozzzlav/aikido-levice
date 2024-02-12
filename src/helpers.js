@@ -8,8 +8,7 @@ const getSKDate = (date) => {
   const formattedMonth = month < 10 ? `0${month}` : month;
 
   // Construct the Slovak date string
-  const slovakDateString = `${formattedDay}.${formattedMonth}.${year}`;
-  return slovakDateString;
+  return `${formattedDay}.${formattedMonth}.${year}`;
 };
 
 const checkImagesLoaded = (images) => {
@@ -26,6 +25,10 @@ const checkImagesLoaded = (images) => {
 
 const waitForImages = (images) =>
   new Promise((resolve) => {
+    if (images.length === 0) {
+      resolve();
+      return;
+    }
     images.forEach((img) => {
       if (!img.complete) {
         img.addEventListener('load', () => {

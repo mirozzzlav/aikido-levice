@@ -14,13 +14,11 @@ export default function LoaderProvider({ children }) {
   const effectFiredRef = useRef(null);
   const [pageLoaded, setPageLoaded] = useState(false);
   const [forceReload, setForceReload] = useState(0);
-
   useEffect(() => {
     if (effectFiredRef.current) {
       return;
     }
     effectFiredRef.current = true;
-
     waitForImages(document.querySelectorAll('img')).then(() => {
       setPageLoaded(true);
     });

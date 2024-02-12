@@ -2,17 +2,7 @@ import { css } from '@emotion/css';
 import { mediaQueries } from 'src/style';
 
 const style = {
-  navbarTop: css({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    margin: '0 auto',
-    width: 'var(--content-width)',
-    padding: '0 2rem',
-    zIndex: 100,
-    position: 'relative',
-  }),
-  navbar: (active) =>
+  burgerMenu: (active) =>
     css({
       button: {
         height: '40px',
@@ -34,6 +24,7 @@ const style = {
         height: '100vh',
         top: 0,
         left: 0,
+        zIndex: -1,
         backgroundColor: 'rgba(255,255,255,0.7)',
         paddingTop: '140px',
         [mediaQueries.sm]: {
