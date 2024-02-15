@@ -14,7 +14,7 @@ const galeria = {
           srcThumb: 'https://aikidolevice.sk/photos/novinky/thumbs/1.jpg',
           orderBy: new Date('2024-04-06'),
           extraContent: (
-            <NewsElement label="6.4.2023">
+            <NewsElement label="6.4.2024">
               Seminár aikido pre&nbsp;deti
               <br />
               Holíč (SK)
