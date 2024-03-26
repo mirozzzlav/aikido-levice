@@ -45,21 +45,6 @@ const galeria = {
             </NewsElement>
           ),
         },
-
-        {
-          src: 'https://img.youtube.com/vi/ACUvGEqU90g/hqdefault.jpg',
-          video: {
-            src: 'https://www.youtube.com/embed/ACUvGEqU90g',
-          },
-          orderBy: new Date('2023-03-16'),
-          extraContent: (
-            <NewsElement label="16. 3. 2024">
-              Seminár SAA
-              <br />
-              Ružomberok (SK)
-            </NewsElement>
-          ),
-        },
       ]}
     />
   ),
