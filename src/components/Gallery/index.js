@@ -6,11 +6,16 @@ import { Thumbnails, Fullscreen } from 'yet-another-react-lightbox/plugins';
 
 import style from 'src/components/Gallery/style';
 
-function MediaElement({ src, video, extraContent, onClick }) {
+function MediaElement({ src, video, extraContent, onClick, fullWidth }) {
   return (
     <div
-      className={style.thumbWrapper}
-      onClick={onClick}
+      className={style.thumbWrapper(fullWidth)}
+      onClick={({ target }) => {
+        if (target.tagName.toLowerCase() !== 'a') {
+          return onClick();
+        }
+        return true;
+      }}
       tabIndex={0}
       onKeyDown={() => {}}
       role="button"
@@ -39,14 +44,15 @@ MediaElement.prototype.propTypes = {
   ]),
   extraContent: PropTypes.oneOfType([PropTypes.node, PropTypes.oneOf([null])]),
   onClick: PropTypes.func.isRequired,
+  fullWidth: PropTypes.bool.isRequired,
 };
 
-export default function Gallery({ media }) {
+export default function Gallery({ media, vertical }) {
   const [index, setIndex] = useState(-1);
 
   return (
     <>
-      <div className={style.galleryWrapper}>
+      <div className={style.galleryWrapper(vertical)}>
         {media
           .sort((m1, m2) =>
             m1.orderBy && m2.orderBy
@@ -60,6 +66,7 @@ export default function Gallery({ media }) {
               src={srcThumb || src}
               video={video}
               onClick={() => setIndex(currentIndex)}
+              fullWidth={vertical}
             />
           ))}
       </div>
@@ -97,8 +104,12 @@ export default function Gallery({ media }) {
     </>
   );
 }
+Gallery.defaultProps = {
+  vertical: false,
+};
 
 Gallery.prototype.propTypes = {
+  vertical: PropTypes.bool,
   media: PropTypes.arrayOf(
     PropTypes.shape({
       src: PropTypes.string,

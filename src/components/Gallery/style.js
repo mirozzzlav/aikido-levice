@@ -1,28 +1,41 @@
 import { css } from '@emotion/css';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
+import { mediaQueries } from 'src/style.js';
 
 const style = {
-  galleryWrapper: css({
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '1rem',
-  }),
-  thumbWrapper: css({
-    width: '140px',
-    cursor: 'pointer',
-    img: {
-      width: '100%',
-      aspectRatio: 1,
-      margin: '0 !important',
-      objectFit: 'cover',
-      borderRadius: '8px',
-      transition: 'box-shadow 0.1s linear',
-      '&:hover': {
-        boxShadow: '0px 0px 30px 0px rgba(0,0,0,0.2)',
+  galleryWrapper: (vertical) =>
+    css({
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: vertical ? '3rem' : '1rem',
+    }),
+  thumbWrapper: (fullWidth) =>
+    css({
+      width: '140px',
+      cursor: 'pointer',
+      img: {
+        width: '100%',
+        aspectRatio: 1,
+        margin: '0 !important',
+        objectFit: 'cover',
+        borderRadius: '8px',
+        transition: 'box-shadow 0.1s linear',
+        '&:hover': {
+          boxShadow: '0px 0px 30px 0px rgba(0,0,0,0.2)',
+        },
       },
-    },
-  }),
+
+      ...(fullWidth && {
+        width: 'auto',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '1rem',
+        flexWrap: 'wrap',
+        img: { width: '140px', height: '140px' },
+      }),
+      [mediaQueries.xs]: { flexWrap: 'nowrap' },
+    }),
   videoThumb: css({
     position: 'relative',
     '&:after': {

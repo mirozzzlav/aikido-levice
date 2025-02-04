@@ -48,11 +48,20 @@ export const fontFaces = [
   },
 ];
 
-const contentStyle = (paddingTop = false) => ({
-  margin: '0 auto',
-  width: 'var(--content-width)',
-  padding: `${paddingTop ? '2rem' : 0} 2rem 0 2rem`,
-});
+const contentStyle = (pPaddingTop = false) => {
+  let paddingTop = 0;
+  if (pPaddingTop === true) {
+    paddingTop = '3rem';
+  }
+  if (typeof pPaddingTop === 'string') {
+    paddingTop = pPaddingTop;
+  }
+  return {
+    margin: '0 auto',
+    width: 'var(--content-width)',
+    padding: `${paddingTop} 2rem 0 2rem`,
+  };
+};
 
 export const globalStyle = {
   '*': {
@@ -80,15 +89,18 @@ export const globalStyle = {
   },
   h1: {
     fontFamily: "'Gloria Hallelujah', cursive",
-    margin: '0rem 0 2rem 0',
-    fontSize: '2.8rem',
+    margin: '0rem 0 1rem 0',
+    fontSize: '2.4rem',
+    [mediaQueries.sm]: {
+      fontSize: '2.8rem',
+      margin: '0rem 0 2rem 0',
+    },
     color: '#668972',
   },
   h2: {
     margin: '1.8rem 0 0.4rem 0',
     padding: '0',
     fontSize: '1.6rem',
-    fontWeight: '300',
   },
   a: {
     color: '#668972',
@@ -119,6 +131,7 @@ export const globalStyle = {
       fontWeight: 300,
       flexGrow: 1,
       lineHeight: 'calc(1.15rem * 1.5)',
+      '& a': { color: '#000', textDecoration: 'underline' },
     },
     'a:hover': {
       textDecoration: 'underline',
@@ -145,7 +158,6 @@ export const globalStyle = {
       alignItems: 'center',
       span: {
         marginTop: '0.4rem',
-        fontWeight: 300,
       },
       img: {
         height: '250px',
@@ -178,9 +190,11 @@ export const globalStyle = {
     marginLeft: 'auto',
     marginRight: 'auto',
     display: 'block',
-    width: '65%',
-    maxHeight: '600px',
-    maxWidth: '600px',
+    width: '40%',
+    minWidth: '250px',
+    minHeight: '250px',
+    maxHeight: '550px',
+    maxWidth: '550px',
     objectFit: 'contain',
     alignSelf: 'center',
     '&:last-child': {
@@ -231,6 +245,9 @@ export const globalStyle = {
         ...(!active && { filter: 'blur(20px)' }),
         overflow: 'auto',
         '> *': {
+          '&:first-child': {
+            ...contentStyle('1rem'),
+          },
           ...contentStyle(true),
         },
       },
