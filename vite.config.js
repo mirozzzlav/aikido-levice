@@ -8,20 +8,14 @@ export default defineConfig({
   server: {
     port: 3000,
     host: '0.0.0.0',
-    // proxy: {
-    //   '/api': {
-    //     target: `http://0.0.0.0:${process.env.VITE_API_PORT}`,
-    //     changeOrigin: true,
-    //     rewrite: (path) => path.replace(/^\/api/, ''),
-    //     secure: false,
-    //   },
-    //   '/media': {
-    //     target: `http://0.0.0.0:${process.env.VITE_MEDIA_STORE_PORT}`,
-    //     changeOrigin: true,
-    //     rewrite: (path) => path,
-    //     secure: false,
-    //   },
-    // },
+    proxy: {
+      '/api': {
+        target: 'https://aikidolevice.sk',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false,
+      },
+    },
   },
   resolve: {
     alias: {

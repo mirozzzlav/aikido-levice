@@ -3,25 +3,24 @@ import config, { formStates } from 'src/config';
 import Button from 'src/components/Button';
 import style from 'src/components/ContactForm/style';
 
-export async function sendContactFormMail(fromMail, message) {
+export async function sendContactFormMail(from, message) {
   const headers = new Headers();
   headers.append('Content-Type', 'application/json');
 
-  return fetch(config.mailSend.url, {
+  const formData = new URLSearchParams();
+  formData.append('from', from);
+  formData.append('message', message);
+
+  return fetch(config.sender.url, {
     method: 'POST',
-    headers,
-    body: JSON.stringify({
-      service_id: config.mailSend.serviceId,
-      user_id: config.mailSend.publicKey,
-      template_id: config.contactPageHandler.templateId,
-      template_params: {
-        fromMail,
-        message,
-      },
-    }),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: formData.toString(),
   })
-    .then((resp) => resp)
-    .catch((error) => error);
+    .then((resp) => resp.text())
+    .then((respText) => respText === 'OK')
+    .catch(() => false);
 }
 
 const errorMessages = {
@@ -63,9 +62,9 @@ export default function ContactForm() {
     setInputErrors(errors);
     if (!errors) {
       setFormState(formStates.loading);
-      const resp = await sendContactFormMail(inputs.mail, inputs.message);
+      const sent = await sendContactFormMail(inputs.mail, inputs.message);
       // sendMail function call
-      if (resp.ok) {
+      if (sent) {
         setFormState(formStates.success);
         setInputs(null);
         setInputErrors(null);

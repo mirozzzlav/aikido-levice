@@ -2,10 +2,9 @@ const config = {
   contactPageHandler: {
     templateId: 'template_contact_form',
   },
-  mailSend: {
-    url: 'https://api.emailjs.com/api/v1.0/email/send',
-    serviceId: 'service_4xfc74g',
-    publicKey: 'SeoE35BedqrB4LK-w',
+  sender: {
+    url:
+      window.location.hostname === 'localhost' ? '/api/send.php' : '/send.php',
   },
 };
 
