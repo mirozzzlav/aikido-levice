@@ -2,6 +2,7 @@ import React from 'react';
 import {
   BrowserRouter,
   Link,
+  Navigate,
   Route as ReactRoute,
   Routes as RoutesReactDom,
 } from 'react-router-dom';
@@ -16,7 +17,11 @@ function App() {
     <LoaderProvider>
       <BrowserRouter>
         <RoutesReactDom>
-          {pages.map(({ id, route }) => (
+          <ReactRoute
+            path="/"
+            element={<Navigate to={pages.oAikide.route} />}
+          />
+          {Object.values(pages).map(({ id, route }) => (
             <ReactRoute
               key={id}
               element={<PagesLayout pages={pages} />}

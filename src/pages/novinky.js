@@ -9,7 +9,7 @@ const galeria = {
   headline: 'Novinky',
   content: (
     <Gallery
-      vertical={true}
+      vertical
       media={[
         {
           src: 'https://aikidolevice.sk/photos/novinky/1.jpg?rand=123',

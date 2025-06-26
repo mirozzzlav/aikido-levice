@@ -193,12 +193,19 @@ export const globalStyle = {
     width: '40%',
     minWidth: '250px',
     minHeight: '250px',
-    maxHeight: '550px',
-    maxWidth: '550px',
+    maxHeight: '350px',
+    maxWidth: '350px',
     objectFit: 'contain',
     alignSelf: 'center',
     '&:last-child': {
       marginBottom: 0,
+    },
+  }),
+  floated: css({
+    display: 'block',
+    [mediaQueries.sm]: {
+      float: 'left',
+      margin: '0px 20px 0px 0px',
     },
   }),
   page: css({
@@ -209,10 +216,11 @@ export const globalStyle = {
       textAlign: 'center',
     },
     p: {
-      textAlign: 'justify',
-      [mediaQueries.sm]: {
-        textAlign: 'left',
+      '&::first-letter': {
+        fontWeight: 600,
+        fontSize: '140%',
       },
+      textAlign: 'justify',
       '&:last-child': {
         marginBottom: 0,
       },

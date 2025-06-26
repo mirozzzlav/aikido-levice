@@ -43,7 +43,7 @@ export default function PagesLayout({ pages }) {
   );
   const menuRoutes = useMemo(
     () =>
-      pages
+      Object.values(pages)
         .filter(({ id }) => id !== 'home')
         .map(({ headline, menuLabel, route }) => ({
           label: menuLabel || headline,
@@ -65,30 +65,15 @@ export default function PagesLayout({ pages }) {
       }
       body={
         <>
-          <Page
-            key="home"
-            active={currentPageId === 'home'}
-            content={
-              <img
-                className={style.contentImg}
-                src="/ueshiba.svg"
-                alt="Morihei Ueshiba"
-              />
-            }
-          />
-
-          {pages.map(
-            ({ id, headline, content, cols }) =>
-              id !== 'home' && (
-                <Page
-                  key={`${id}`}
-                  headline={headline}
-                  content={content}
-                  active={currentPageId === id}
-                  cols={!!cols}
-                />
-              ),
-          )}
+          {Object.values(pages).map(({ id, headline, content, cols }) => (
+            <Page
+              key={`${id}`}
+              headline={headline}
+              content={content}
+              active={currentPageId === id}
+              cols={!!cols}
+            />
+          ))}
         </>
       }
       footer={

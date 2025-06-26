@@ -14,7 +14,7 @@ const style = {
     css({
       width: '140px',
       cursor: 'pointer',
-      img: {
+      '&  img': {
         width: '100%',
         aspectRatio: 1,
         margin: '0 !important',
