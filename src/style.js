@@ -236,6 +236,8 @@ export const globalStyle = {
 
   container: (active = true) =>
     css({
+      // background: 'url(bg.jpg) center no-repeat',
+      // maskImage: 'radial-gradient(circle, black 60%, transparent 100%)',
       display: 'flex',
       flexDirection: 'column',
       height: '100vh',
