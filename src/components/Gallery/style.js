@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
-import { mediaQueries } from 'src/style.js';
+import { mediaQueries } from 'src/style';
 
 const style = {
   galleryWrapper: (vertical) =>
@@ -29,7 +29,7 @@ const style = {
       ...(fullWidth && {
         width: 'auto',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         gap: '1rem',
         flexWrap: 'wrap',
         img: { width: '140px', height: '140px' },

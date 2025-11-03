@@ -56,7 +56,7 @@ export default function Gallery({ media, vertical }) {
         {media
           .sort((m1, m2) =>
             m1.orderBy && m2.orderBy
-              ? m1.orderBy - m2.orderBy
+              ? m2.orderBy - m1.orderBy
               : m1.src.localeCompare(m2.src),
           )
           .map(({ src, video, extraContent, srcThumb }, currentIndex) => (
