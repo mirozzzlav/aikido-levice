@@ -48,19 +48,23 @@ MediaElement.propTypes = {
   fullWidth: PropTypes.bool.isRequired,
 };
 
-export default function Gallery({ media, vertical = false }) {
+export default function Gallery({
+  media,
+  vertical = false,
+  singleImage = false,
+}) {
   const [index, setIndex] = useState(-1);
+  const sortedMedia = [...media].sort((m1, m2) =>
+    m1.orderBy && m2.orderBy
+      ? m2.orderBy - m1.orderBy
+      : m1.src.localeCompare(m2.src),
+  );
 
   return (
     <>
       <div className={style.galleryWrapper(vertical)}>
-        {media
-          .sort((m1, m2) =>
-            m1.orderBy && m2.orderBy
-              ? m2.orderBy - m1.orderBy
-              : m1.src.localeCompare(m2.src),
-          )
-          .map(({ src, video, extraContent, srcThumb }, currentIndex) => (
+        {sortedMedia.map(
+          ({ src, video, extraContent, srcThumb }, currentIndex) => (
             <MediaElement
               key={src}
               extraContent={extraContent}
@@ -69,20 +73,22 @@ export default function Gallery({ media, vertical = false }) {
               onClick={() => setIndex(currentIndex)}
               fullWidth={vertical}
             />
-          ))}
+          ),
+        )}
       </div>
       <Lightbox
-        slides={media.sort((m1, m2) =>
-          m1.orderBy && m2.orderBy
-            ? m1.orderBy - m2.orderBy
-            : m1.src.localeCompare(m2.src),
-        )}
+        slides={singleImage ? sortedMedia.slice(index, index + 1) : sortedMedia}
         open={index >= 0}
-        index={index}
+        index={singleImage ? 0 : index}
         close={() => setIndex(-1)}
-        plugins={[Fullscreen, Thumbnails]}
+        plugins={singleImage ? [Fullscreen] : [Fullscreen, Thumbnails]}
+        carousel={{ finite: singleImage }}
         className={style.lightBoxRoot}
         render={{
+          ...(singleImage && {
+            buttonPrev: () => null,
+            buttonNext: () => null,
+          }),
           slide: ({ slide, rect }) => {
             if (!slide.video) {
               return null;
@@ -107,6 +113,7 @@ export default function Gallery({ media, vertical = false }) {
 }
 Gallery.propTypes = {
   vertical: PropTypes.bool,
+  singleImage: PropTypes.bool,
   media: PropTypes.arrayOf(
     PropTypes.shape({
       src: PropTypes.string,
