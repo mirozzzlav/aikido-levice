@@ -42,14 +42,11 @@ const style = {
         },
         a: {
           display: 'block',
-          color: '#000',
+          color: 'var(--color-accent-strong)',
           textDecoration: 'none',
           fontSize: '2rem',
           fontFamily: "'Gloria Hallelujah', cursive",
           textAlign: 'center',
-          '&:hover': {
-            color: '#668972 !important',
-          },
         },
       },
     }),

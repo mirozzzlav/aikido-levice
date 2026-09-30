@@ -16,7 +16,7 @@ const style = {
         width: '30px',
       },
       '&[type="submit"]': {
-        backgroundColor: loading ? '#c5c5c5' : '#9abea6',
+        backgroundColor: loading ? '#c5c5c5' : 'var(--color-accent-strong)',
       },
     }),
 };

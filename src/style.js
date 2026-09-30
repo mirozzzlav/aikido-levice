@@ -69,14 +69,19 @@ export const globalStyle = {
     lineHeight: '1.5',
     fontFamily: "'Roboto', sans-serif",
     fontWeight: '400',
-    color: '#000',
+    color: 'var(--color-text-default)',
   },
   ':root': {
     '--content-width': 'auto',
     '--font-size': '18px',
-    // [mediaQueries.md]: {
-    //   '--font-size': '18px',
-    // },
+    '--color-text-default': '#000000',
+    '--color-surface-default': '#ffffff',
+    '--color-accent': '#668972',
+    '--color-accent-strong': '#4f6f59',
+    '--color-border-subtle': '#00000018',
+    '--color-shadow-subtle': '#0000000a',
+    '--color-text-on-accent': 'var(--color-surface-default)',
+    '--color-mask-opaque': 'var(--color-text-default)',
     [mediaQueries.lg]: {
       '--content-width': '1080px',
     },
@@ -85,7 +90,7 @@ export const globalStyle = {
   body: {
     padding: '0',
     margin: '0',
-    backgroundColor: '#fff',
+    backgroundColor: 'var(--color-surface-default)',
   },
   h1: {
     fontFamily: "'Gloria Hallelujah', cursive",
@@ -93,9 +98,12 @@ export const globalStyle = {
     fontSize: '2.4rem',
     [mediaQueries.sm]: {
       fontSize: '2.8rem',
-      margin: '0rem 0 2rem 0',
+      margin: '2rem 0 2rem 0',
     },
-    color: '#668972',
+    color: 'var(--color-accent)',
+  },
+  'h2, h3, h4, h5, h6': {
+    color: 'var(--color-accent-strong)',
   },
   h2: {
     margin: '1.8rem 0 0.4rem 0',
@@ -103,11 +111,8 @@ export const globalStyle = {
     fontSize: '1.6rem',
   },
   a: {
-    color: '#668972',
+    color: 'var(--color-accent-strong)',
     textDecoration: 'none',
-    ':hover': {
-      textDecoration: 'none',
-    },
   },
   p: {
     margin: 0,
@@ -121,26 +126,24 @@ export const globalStyle = {
     justifyContent: 'center',
   }),
   info: css({
-    background: '#fff',
-    boxShadow: '10px 10px 10px 0px rgba(0,0,0,0.03)',
-    border: '1px solid #00000018',
+    background: 'var(--color-surface-default)',
+    boxShadow: '10px 10px 10px 0px var(--color-shadow-subtle)',
+    border: '1px solid var(--color-border-subtle)',
     padding: '1rem 2rem',
     borderRadius: '100px',
     '& > *, a': {
       textAlign: 'center',
-      fontWeight: 300,
-      flexGrow: 1,
       lineHeight: 'calc(1.15rem * 1.5)',
-      '& a': { color: '#000', textDecoration: 'underline' },
     },
-    'a:hover': {
+    a: {
       textDecoration: 'underline',
     },
     '& > h4': {
-      fontWeight: 400,
+      fontWeight: 500,
       padding: 0,
       margin: 0,
       fontSize: '1.15rem',
+      color: 'var(--color-text-default)',
     },
     '& > :nth-of-type(2)': {
       minWidth: '300px',
@@ -172,7 +175,7 @@ export const globalStyle = {
     left: 0,
     width: '100%',
     height: '100%',
-    background: '#fff',
+    background: 'var(--color-surface-default)',
     backgroundImage: 'url(/loader.gif)',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -180,10 +183,8 @@ export const globalStyle = {
   header: {
     position: 'relative',
     zIndex: 100,
-    top: 0,
-    left: 0,
-    boxShadow: '10px 10px 10px 0px rgba(0,0,0,0.05)',
-    backgroundColor: '#ffffff',
+    boxShadow: '10px 10px 10px 0px var(--color-shadow-subtle)',
+    backgroundColor: 'var(--color-surface-default)',
     padding: '0.8rem 0',
   },
   contentImg: css({
@@ -197,12 +198,8 @@ export const globalStyle = {
     maxWidth: '350px',
     objectFit: 'contain',
     alignSelf: 'center',
-    '&:last-child': {
-      marginBottom: 0,
-    },
   }),
   floated: css({
-    display: 'block',
     [mediaQueries.sm]: {
       float: 'left',
       margin: '0px 20px 0px 0px',
@@ -221,23 +218,11 @@ export const globalStyle = {
         fontSize: '140%',
       },
       textAlign: 'justify',
-      '&:last-child': {
-        marginBottom: 0,
-      },
     },
-  }),
-
-  pagesContainer: css({
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100vh',
-    overflowY: 'hidden',
   }),
 
   container: (active = true) =>
     css({
-      // background: 'url(bg.jpg) center no-repeat',
-      // maskImage: 'radial-gradient(circle, black 60%, transparent 100%)',
       display: 'flex',
       flexDirection: 'column',
       height: '100vh',
@@ -255,19 +240,19 @@ export const globalStyle = {
         ...(!active && { filter: 'blur(20px)' }),
         overflow: 'auto',
         '> *': {
-          '&:first-child': {
-            ...contentStyle('1rem'),
-          },
           ...contentStyle(true),
+          '&:first-child': {
+            paddingTop: '1rem',
+          },
         },
       },
       footer: {
-        background: '#9abea6',
+        background: 'var(--color-accent-strong)',
         '--mask':
-          'conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) 50%/15.00px 100%;   -webkit-mask: var(--mask)',
+          'conic-gradient(from 135deg at top,transparent,var(--color-mask-opaque) 1deg 89deg,transparent 90deg) 50%/15.00px 100%;   -webkit-mask: var(--mask)',
         mask: 'var(--mask)',
         width: 'auto',
-        color: '#fff',
+        color: 'var(--color-text-on-accent)',
         padding: '2rem',
         marginTop: '4rem',
         '> div': {
@@ -300,13 +285,13 @@ export const globalStyle = {
           },
         },
         'a.link': {
-          color: 'rgb(245, 249, 246)',
+          color: 'var(--color-text-on-accent)',
           fontWeight: '500',
           paddingBottom: '2px',
           borderBottom: '2px solid transparent',
         },
         'a.link:hover, a.link.active': {
-          borderBottom: '2px solid rgb(245, 249, 246)',
+          borderBottom: '2px solid var(--color-text-on-accent)',
         },
       },
     }),

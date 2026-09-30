@@ -6,7 +6,7 @@ const style = {
       padding: 0,
       margin: 0,
       fontSize: '1.3rem',
-      color: '#668972',
+      color: 'var(--color-accent-strong)',
     },
   }),
 };

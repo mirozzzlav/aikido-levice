@@ -73,7 +73,7 @@ const style = {
     borderRadius: '50px',
     padding: '0.8rem 2rem',
     fontSize: '1rem',
-    background: '#9abea6',
+    background: 'var(--color-accent-strong)',
     color: '#fff',
   }),
 };
