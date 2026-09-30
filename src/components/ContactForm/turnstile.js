@@ -4,7 +4,7 @@ export default function loadTurnstile() {
   if (!scriptPromise) {
     scriptPromise = new Promise((resolve, reject) => {
       if (window.turnstile) {
-        window.turnstile.ready(() => resolve(window.turnstile));
+        resolve(window.turnstile);
         return;
       }
 
@@ -13,7 +13,13 @@ export default function loadTurnstile() {
         'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
       script.async = true;
       script.onload = () => {
-        window.turnstile.ready(() => resolve(window.turnstile));
+        // The async script has finished executing; ready() rejects async/defer.
+        if (!window.turnstile) {
+          script.remove();
+          reject(new Error('Turnstile API nie je dostupné.'));
+          return;
+        }
+        resolve(window.turnstile);
       };
       script.onerror = () => {
         script.remove();
