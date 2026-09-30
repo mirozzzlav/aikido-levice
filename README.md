@@ -17,6 +17,13 @@ Fotografie sú v `public/photos/`. Vite ich automaticky skopíruje vrátane
 podadresárov do `dist/photos/`, takže sa nahrajú spolu s ostatným obsahom
 `dist/`. Ich URL zostávajú `/photos/...`.
 
+Kontaktný formulár obsluhuje `public/send.php`, ktorý sa tiež automaticky
+skopíruje do `dist/send.php`. Na hostingu musí byť zapnuté PHP. Skript vyžaduje
+PHPMailer cez `vendor/autoload.php`, preto na server nahraj aj kompletný
+adresár `vendor/` vedľa `send.php`. Tieto PHP závislosti nie sú v tomto
+repozitári ani v aktuálnom builde. Vite lokálne PHP nespúšťa; formulár na
+localhoste používa proxy `/api/send.php` na produkčný server.
+
 Pravidlá v `.htaccess` interne nasmerujú cesty ako `/o-aikide` na `index.html`,
 aby fungovalo priame otvorenie URL aj obnovenie stránky s React routovaním.
 Existujúce súbory a adresáre sa obsluhujú priamo.
@@ -26,5 +33,5 @@ Apache musí mať zapnutý `mod_rewrite` a pre adresár webu povolené
 toto nastavenie musí upraviť správca hostingu.
 
 Po nasadení over priame otvorenie a obnovenie stránky `/o-aikide` a načítanie
-existujúceho obrázka. Súbory `send.php` a `sitemap.xml` nie sú súčasťou Vite
-buildu; na server sa nahrávajú samostatne.
+existujúceho obrázka. Over tiež odoslanie kontaktného formulára. Súbor
+`sitemap.xml` nie je súčasťou Vite buildu; na server sa nahráva samostatne.
