@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { LoaderContext } from 'src/LoaderProvider';
 import { globalStyle as style } from 'src/style';
 
-export default function Page({ headline, content, active }) {
+export default function Page({ headline = null, content = null, active }) {
   const ref = useRef(null);
   const pageLoaded = useContext(LoaderContext);
 
@@ -25,12 +25,7 @@ export default function Page({ headline, content, active }) {
   );
 }
 
-Page.defaultProps = {
-  headline: null,
-  content: null,
-};
-
-Page.prototype.propTypes = {
+Page.propTypes = {
   headline: PropTypes.oneOfType([PropTypes.node, PropTypes.oneOf([null])]),
   content: PropTypes.oneOfType([PropTypes.node, PropTypes.oneOf([null])]),
   active: PropTypes.bool.isRequired,

@@ -30,7 +30,12 @@ export function LoaderSvg() {
   );
 }
 
-export default function Button({ type, label, onClick, loading }) {
+export default function Button({
+  type = 'submit',
+  label,
+  onClick,
+  loading = null,
+}) {
   return (
     <button
       type={type === 'submit' ? 'submit' : 'button'}
@@ -43,11 +48,7 @@ export default function Button({ type, label, onClick, loading }) {
   );
 }
 
-Button.defaultProps = {
-  type: 'submit',
-  loading: null,
-};
-Button.prototype.propTypes = {
+Button.propTypes = {
   type: PropTypes.string,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,

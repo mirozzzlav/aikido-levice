@@ -128,6 +128,3 @@ export default function ContactForm() {
     </div>
   );
 }
-
-ContactForm.defaultProps = {};
-ContactForm.prototype.propTypes = {};

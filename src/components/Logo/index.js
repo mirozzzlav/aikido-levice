@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import { css, cx } from '@emotion/css';
 import style from 'src/components/Logo/style';
 
-export default function Logo({ color, width, height }) {
+export default function Logo({
+  color = '#000',
+  width = '5rem',
+  height = '5rem',
+}) {
   return (
     <Link
       to="/"
@@ -28,13 +32,7 @@ export default function Logo({ color, width, height }) {
   );
 }
 
-Logo.defaultProps = {
-  width: '5rem',
-  height: '5rem',
-  color: '#000',
-};
-
-Logo.prototype.propTypes = {
+Logo.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
   color: PropTypes.string,

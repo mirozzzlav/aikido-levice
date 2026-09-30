@@ -48,6 +48,6 @@ export default function LoaderProvider({ children }) {
   );
 }
 
-LoaderProvider.prototype.propTypes = {
+LoaderProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };

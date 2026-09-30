@@ -1,4 +1,3 @@
-import { globalStyle as style } from 'src/style';
 import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -7,7 +6,7 @@ import BurgerMenu from 'src/components/BurgerMenu';
 import Layout from 'src/Layout';
 import Logo from 'src/components/Logo';
 
-function Links({ className, routes }) {
+function Links({ className = null, routes }) {
   return (
     <nav className={className}>
       {routes.map(({ route, label }) => (
@@ -21,11 +20,7 @@ function Links({ className, routes }) {
   );
 }
 
-Links.defaultProps = {
-  className: null,
-};
-
-Links.prototype.propTypes = {
+Links.propTypes = {
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   routes: PropTypes.arrayOf(
     PropTypes.shape({ route: PropTypes.string, label: PropTypes.string }),
@@ -87,8 +82,8 @@ export default function PagesLayout({ pages }) {
   );
 }
 
-PagesLayout.prototype.propTypes = {
-  pages: PropTypes.arrayOf(
+PagesLayout.propTypes = {
+  pages: PropTypes.objectOf(
     PropTypes.shape({
       id: PropTypes.string,
       headline: PropTypes.string,

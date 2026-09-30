@@ -76,6 +76,12 @@
       "react/jsx-one-expression-per-line": "off",
       "react/jsx-wrap-multilines": "off",
       "react/jsx-curly-newline": "off",
+      "react/require-default-props": [
+        "error",
+        {
+          "functions": "defaultArguments"
+        }
+      ],
       "function-paren-newline": "off",
       "no-confusing-arrow": "off",
       "import/no-unresolved": "off",

@@ -6,7 +6,13 @@ import { Thumbnails, Fullscreen } from 'yet-another-react-lightbox/plugins';
 
 import style from 'src/components/Gallery/style';
 
-function MediaElement({ src, video, extraContent, onClick, fullWidth }) {
+function MediaElement({
+  src,
+  video = null,
+  extraContent = null,
+  onClick,
+  fullWidth,
+}) {
   return (
     <div
       className={style.thumbWrapper(fullWidth)}
@@ -31,12 +37,7 @@ function MediaElement({ src, video, extraContent, onClick, fullWidth }) {
     </div>
   );
 }
-MediaElement.defaultProps = {
-  video: null,
-  extraContent: null,
-};
-
-MediaElement.prototype.propTypes = {
+MediaElement.propTypes = {
   src: PropTypes.string.isRequired,
   video: PropTypes.oneOfType([
     PropTypes.shape({ src: PropTypes.string }),
@@ -47,7 +48,7 @@ MediaElement.prototype.propTypes = {
   fullWidth: PropTypes.bool.isRequired,
 };
 
-export default function Gallery({ media, vertical }) {
+export default function Gallery({ media, vertical = false }) {
   const [index, setIndex] = useState(-1);
 
   return (
@@ -104,11 +105,7 @@ export default function Gallery({ media, vertical }) {
     </>
   );
 }
-Gallery.defaultProps = {
-  vertical: false,
-};
-
-Gallery.prototype.propTypes = {
+Gallery.propTypes = {
   vertical: PropTypes.bool,
   media: PropTypes.arrayOf(
     PropTypes.shape({

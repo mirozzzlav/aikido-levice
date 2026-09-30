@@ -31,7 +31,7 @@ export default function BurgerMenu({ routes, menuActive, setMenuActive }) {
   );
 }
 
-BurgerMenu.prototype.propTypes = {
+BurgerMenu.propTypes = {
   routes: PropTypes.arrayOf(
     PropTypes.shape({ route: PropTypes.string, label: PropTypes.string }),
   ).isRequired,

@@ -11,7 +11,7 @@ export default function NewsElement({ label, children }) {
   );
 }
 
-NewsElement.prototype.propTypes = {
+NewsElement.propTypes = {
   label: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };

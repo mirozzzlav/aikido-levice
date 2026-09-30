@@ -5,7 +5,7 @@ import { Global } from '@emotion/react';
 import Logo from 'src/components/Logo';
 import { LoaderContext } from 'src/LoaderProvider';
 
-export default function Layout({ header, body, footer, active }) {
+export default function Layout({ header, body, footer = null, active = true }) {
   const { setForceReload } = useContext(LoaderContext);
   const { pageLoaded } = useContext(LoaderContext);
   useEffect(() => setForceReload, []);
@@ -29,11 +29,7 @@ export default function Layout({ header, body, footer, active }) {
     </div>
   );
 }
-Layout.defaultProps = {
-  footer: null,
-  active: true,
-};
-Layout.prototype.propTypes = {
+Layout.propTypes = {
   header: PropTypes.node.isRequired,
   body: PropTypes.node.isRequired,
   footer: PropTypes.oneOfType([
