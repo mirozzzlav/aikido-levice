@@ -38,7 +38,8 @@ try {
     $mail->addReplyTo($_POST["from"]);
     $mail->isHTML(false);
     $mail->Subject = $subject;
-    $mail->Body = $_POST["message"];
+    $mail->Body = "Odosielateľ: " . $_POST["from"]
+        . "\n\nSpráva:\n" . $_POST["message"];
     $mail->send();
 
     echo 'OK';
