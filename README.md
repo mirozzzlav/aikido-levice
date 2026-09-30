@@ -18,10 +18,12 @@ podadresárov do `dist/photos/`, takže sa nahrajú spolu s ostatným obsahom
 `dist/`. Ich URL zostávajú `/photos/...`.
 
 Kontaktný formulár obsluhuje `public/send.php`, ktorý sa tiež automaticky
-skopíruje do `dist/send.php`. Na hostingu musí byť zapnuté PHP. Skript vyžaduje
-PHPMailer cez `vendor/autoload.php`, preto na server nahraj aj kompletný
-adresár `vendor/` vedľa `send.php`. Tieto PHP závislosti nie sú v tomto
-repozitári ani v aktuálnom builde. Vite lokálne PHP nespúšťa; formulár na
+skopíruje do `dist/send.php`. Potrebné súbory PHPMailer 7.1.1 sú v
+`public/phpmailer/` a build ich automaticky zahrnie do `dist/phpmailer/`.
+Na FTP nahraj `send.php` aj adresár `phpmailer/` vedľa neho; stačí nahrať celý
+obsah `dist/`. Skript už nevyžaduje `vendor/autoload.php` ani Composer na
+serveri. Na hostingu musí byť zapnuté PHP s rozšíreniami `ctype`, `filter`,
+`hash` a `openssl` pre SMTP cez TLS. Vite lokálne PHP nespúšťa; formulár na
 localhoste používa proxy `/api/send.php` na produkčný server.
 
 Pravidlá v `.htaccess` interne nasmerujú cesty ako `/o-aikide` na `index.html`,
