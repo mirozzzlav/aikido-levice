@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# Private build configuration and any accidentally uploaded environment files.
+RewriteRule ^(?:contact-config\.php|\.env(?:\..*)?)$ - [F,L,NC]
+
 # Serve existing files and directories directly; let React handle other paths.
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

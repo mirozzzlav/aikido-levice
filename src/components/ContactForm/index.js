@@ -1,15 +1,16 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import config, { formStates } from 'src/config';
 import Button from 'src/components/Button';
 import style from 'src/components/ContactForm/style';
+import loadTurnstile from './turnstile';
 
-export async function sendContactFormMail(from, message) {
-  const headers = new Headers();
-  headers.append('Content-Type', 'application/json');
+export async function sendContactFormMail(from, message, token) {
+  if (!config.sender.enabled || !token) return false;
 
   const formData = new URLSearchParams();
   formData.append('from', from);
   formData.append('message', message);
+  formData.append('cf-turnstile-response', token);
 
   return fetch(config.sender.url, {
     method: 'POST',
@@ -18,7 +19,7 @@ export async function sendContactFormMail(from, message) {
     },
     body: formData.toString(),
   })
-    .then((resp) => resp.text())
+    .then((resp) => (resp.ok ? resp.text() : 'NOK'))
     .then((respText) => respText === 'OK')
     .catch(() => false);
 }
@@ -32,6 +33,56 @@ export default function ContactForm() {
   const [inputs, setInputs] = useState(null);
   const [inputErrors, setInputErrors] = useState(null);
   const [formState, setFormState] = useState('initial');
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileError, setTurnstileError] = useState('');
+  const turnstileContainer = useRef(null);
+  const turnstileWidget = useRef(null);
+  const submitting = useRef(false);
+
+  useEffect(() => {
+    if (!config.sender.enabled || !config.turnstile.siteKey) return undefined;
+
+    let cancelled = false;
+    loadTurnstile()
+      .then((turnstile) => {
+        if (cancelled) return;
+        turnstileWidget.current = turnstile.render(turnstileContainer.current, {
+          sitekey: config.turnstile.siteKey,
+          action: 'contact',
+          // Non-interactive mode is configured for this sitekey in Cloudflare.
+          execution: 'render',
+          language: 'sk',
+          size: 'flexible',
+          callback: (token) => {
+            setTurnstileToken(token);
+            setTurnstileError('');
+          },
+          'expired-callback': () => setTurnstileToken(''),
+          'timeout-callback': () => setTurnstileToken(''),
+          'error-callback': () => {
+            setTurnstileToken('');
+            setTurnstileError(
+              'Overenie sa nepodarilo. Skúste ho znova alebo obnovte stránku.',
+            );
+          },
+        });
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setTurnstileError(
+            'Overenie sa nepodarilo načítať. Obnovte stránku a skúste znova.',
+          );
+        }
+      });
+
+    return () => {
+      cancelled = true;
+      if (turnstileWidget.current !== null) {
+        window.turnstile.remove(turnstileWidget.current);
+        turnstileWidget.current = null;
+      }
+    };
+  }, []);
 
   const validateInputs = useCallback(() => {
     let errors = null;
@@ -58,12 +109,23 @@ export default function ContactForm() {
   }, [inputs]);
 
   const onSubmit = useCallback(async () => {
+    if (!config.sender.enabled || !turnstileToken || submitting.current) return;
     const errors = validateInputs();
     setInputErrors(errors);
     if (!errors) {
+      submitting.current = true;
       setFormState(formStates.loading);
-      const sent = await sendContactFormMail(inputs.mail, inputs.message);
-      // sendMail function call
+      const sent = await sendContactFormMail(
+        inputs.mail,
+        inputs.message,
+        turnstileToken,
+      );
+      // Tokens are single-use, including attempts that fail after verification.
+      setTurnstileToken('');
+      if (turnstileWidget.current !== null) {
+        window.turnstile.reset(turnstileWidget.current);
+      }
+      submitting.current = false;
       if (sent) {
         setFormState(formStates.success);
         setInputs(null);
@@ -74,7 +136,7 @@ export default function ContactForm() {
     } else {
       setFormState(formStates.error);
     }
-  }, [validateInputs]);
+  }, [validateInputs, inputs, turnstileToken]);
 
   return (
     <div>
@@ -109,6 +171,18 @@ export default function ContactForm() {
         />
         <span aria-roledescription="input-state">{inputErrors?.message}</span>
       </div>
+      {config.sender.enabled ? (
+        <div>
+          <div ref={turnstileContainer} />
+          <p role="status">
+            {config.turnstile.siteKey
+              ? turnstileError
+              : 'Kontaktný formulár je dočasne nedostupný. Kontaktujte nás telefonicky.'}
+          </p>
+        </div>
+      ) : (
+        <p>Odosielanie formulára je vo vývojovom režime vypnuté.</p>
+      )}
       <div className={style.formResult(formState)}>
         {formState === formStates.error &&
           inputErrors === null &&
@@ -124,6 +198,7 @@ export default function ContactForm() {
         onClick={onSubmit}
         label="Odoslať"
         loading={formState === formStates.loading}
+        disabled={!config.sender.enabled || !turnstileToken}
       />
     </div>
   );

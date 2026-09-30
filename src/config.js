@@ -3,8 +3,11 @@ const config = {
     templateId: 'template_contact_form',
   },
   sender: {
-    url:
-      window.location.hostname === 'localhost' ? '/api/send.php' : '/send.php',
+    enabled: import.meta.env.PROD,
+    url: `${import.meta.env.BASE_URL}send.php`,
+  },
+  turnstile: {
+    siteKey: import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim(),
   },
 };
 

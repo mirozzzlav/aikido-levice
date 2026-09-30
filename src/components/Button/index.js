@@ -35,11 +35,13 @@ export default function Button({
   label,
   onClick,
   loading = null,
+  disabled = false,
 }) {
   return (
     <button
       type={type === 'submit' ? 'submit' : 'button'}
       onClick={onClick}
+      disabled={disabled || loading === true}
       className={style.formButton(loading)}
     >
       {label}
@@ -53,4 +55,5 @@ Button.propTypes = {
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf([null])]),
+  disabled: PropTypes.bool,
 };

@@ -12,6 +12,10 @@ const style = {
       display: 'flex',
       alignItems: 'center',
       gap: '0.5rem',
+      ':disabled': {
+        cursor: 'not-allowed',
+        opacity: 0.6,
+      },
       '> svg': {
         width: '30px',
       },
