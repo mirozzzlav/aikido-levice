@@ -13,6 +13,49 @@ export const mediaQueries = Object.fromEntries(
     `@media (min-width: ${bp}px)`,
   ]),
 );
+
+export const menuLinkStyle = {
+  '--menu-highlight': '#66897218',
+  position: 'relative',
+  display: 'inline-block',
+  padding: '0.15em 0.55em',
+  borderRadius: '0.4em',
+  transition: 'background-color 180ms ease',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    left: '-0.85em',
+    top: '50%',
+    width: '0.6em',
+    height: '0.45em',
+    backgroundColor: 'currentColor',
+    clipPath: 'polygon(0 38%, 65% 38%, 65% 0, 100% 50%, 65% 100%, 65% 62%, 0 62%)',
+    opacity: 0,
+    transform: 'translate(-0.25em, -50%)',
+    transition: 'opacity 180ms ease, transform 180ms ease',
+    pointerEvents: 'none',
+  },
+  '&:hover, &:focus-visible, &[aria-current="page"]': {
+    backgroundColor: 'var(--menu-highlight)',
+  },
+  '&[aria-current="page"]': {
+    '&::before': {
+      opacity: 1,
+      transform: 'translate(0, -50%)',
+    },
+  },
+  '&:focus-visible': {
+    outline: '2px solid currentColor',
+    outlineOffset: '4px',
+  },
+  '@media (prefers-reduced-motion: reduce)': {
+    transition: 'none',
+    '&::before': {
+      transition: 'none',
+    },
+  },
+};
+
 export const fontFaces = [
   {
     '@font-face': {
@@ -285,13 +328,10 @@ export const globalStyle = {
           },
         },
         'a.link': {
+          ...menuLinkStyle,
+          '--menu-highlight': '#ffffff18',
           color: 'var(--color-text-on-accent)',
           fontWeight: '500',
-          paddingBottom: '2px',
-          borderBottom: '2px solid transparent',
-        },
-        'a.link:hover, a.link.active': {
-          borderBottom: '2px solid var(--color-text-on-accent)',
         },
       },
     }),

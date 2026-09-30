@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { mediaQueries } from 'src/style';
+import { mediaQueries, menuLinkStyle } from 'src/style';
 
 const style = {
   burgerMenu: (active) =>
@@ -41,6 +41,7 @@ const style = {
           gap: '1rem',
         },
         a: {
+          ...menuLinkStyle,
           display: 'block',
           color: 'var(--color-accent-strong)',
           textDecoration: 'none',
