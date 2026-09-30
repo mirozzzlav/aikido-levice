@@ -13,8 +13,8 @@ const galeria = {
       singleImage
       media={[
         {
-          src: 'https://aikidolevice.sk/photos/novinky/2.jpg?rand=789',
-          srcThumb: 'https://aikidolevice.sk/photos/novinky/thumbs/2.jpg',
+          src: '/photos/novinky/2.jpg?rand=789',
+          srcThumb: '/photos/novinky/thumbs/2.jpg',
           orderBy: new Date('2025-11-03'),
           extraContent: (
             <NewsElement label="Pomôžme Slovenskej Aikido Asociácii získať vlastné TATAMI">
@@ -35,8 +35,8 @@ const galeria = {
           ),
         },
         {
-          src: 'https://aikidolevice.sk/photos/novinky/1.jpg?rand=123',
-          srcThumb: 'https://aikidolevice.sk/photos/novinky/thumbs/1.jpg',
+          src: '/photos/novinky/1.jpg?rand=123',
+          srcThumb: '/photos/novinky/thumbs/1.jpg',
           orderBy: new Date('2025-01-01'),
           extraContent: (
             <NewsElement label="Nábor 2025">
