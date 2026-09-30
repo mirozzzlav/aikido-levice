@@ -25,22 +25,35 @@ const checkImagesLoaded = (images) => {
 
 const waitForImages = (images) =>
   new Promise((resolve) => {
-    if (images.length === 0) {
+    if (checkImagesLoaded(images)) {
       resolve();
       return;
     }
+
+    let timeoutId;
+    const removeListeners = [];
+    const finish = () => {
+      clearTimeout(timeoutId);
+      removeListeners.forEach((remove) => remove());
+      resolve();
+    };
+    const onImageSettled = () => {
+      if (checkImagesLoaded(images)) {
+        finish();
+      }
+    };
+
     images.forEach((img) => {
       if (!img.complete) {
-        img.addEventListener('load', () => {
-          if (checkImagesLoaded(images)) {
-            resolve();
-          }
+        img.addEventListener('load', onImageSettled);
+        img.addEventListener('error', onImageSettled);
+        removeListeners.push(() => {
+          img.removeEventListener('load', onImageSettled);
+          img.removeEventListener('error', onImageSettled);
         });
-        return;
-      }
-      if (checkImagesLoaded(images)) {
-        resolve();
       }
     });
+    timeoutId = setTimeout(finish, 10000);
+    onImageSettled();
   });
 export { getSKDate, checkImagesLoaded, waitForImages };

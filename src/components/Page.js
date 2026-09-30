@@ -5,7 +5,7 @@ import { globalStyle as style } from 'src/style';
 
 export default function Page({ headline = null, content = null, active }) {
   const ref = useRef(null);
-  const pageLoaded = useContext(LoaderContext);
+  const { pageLoaded } = useContext(LoaderContext);
 
   useEffect(() => {
     if (!active || !pageLoaded) {
