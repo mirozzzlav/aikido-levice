@@ -7,61 +7,67 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Nasadenie na Apache
+## Deploying to Apache
 
-Spusti `npm run build` a nahraj obsah `dist/` do koreňového adresára webu.
-Nahraj aj skrytý súbor `dist/.htaccess` vedľa `index.html`. Vite ho kopíruje
-z `public/.htaccess` pri každom builde.
+Run `npm run build` and upload the contents of `dist/` to the website's root
+directory. Also upload the hidden `dist/.htaccess` file next to `index.html`.
+Vite copies it from `public/.htaccess` during every build.
 
-Fotografie sú v `public/photos/`. Vite ich automaticky skopíruje vrátane
-podadresárov do `dist/photos/`, takže sa nahrajú spolu s ostatným obsahom
-`dist/`. Ich URL zostávajú `/photos/...`.
+Photos are stored in `public/photos/`. Vite automatically copies them, including
+their subdirectories, to `dist/photos/`, so they are uploaded along with the
+rest of the contents of `dist/`. Their URLs remain `/photos/...`.
 
-Kontaktný formulár obsluhuje `public/send.php`, ktorý sa tiež automaticky
-skopíruje do `dist/send.php`. Potrebné súbory PHPMailer 7.1.1 sú v
-`public/phpmailer/` a build ich automaticky zahrnie do `dist/phpmailer/`.
-Na FTP nahraj `send.php` aj adresár `phpmailer/` vedľa neho; stačí nahrať celý
-obsah `dist/`. Skript už nevyžaduje `vendor/autoload.php` ani Composer na
-serveri. Na hostingu musí byť zapnuté PHP s rozšíreniami `ctype`, `filter`,
-`hash`, `openssl` pre SMTP cez TLS a `curl` pre overenie Turnstile.
-Hosting musí povoliť HTTPS spojenie na `challenges.cloudflare.com`.
+The contact form is handled by `public/send.php`, which is also automatically
+copied to `dist/send.php`. The required PHPMailer 7.1.1 files are stored in
+`public/phpmailer/`, and the build automatically includes them in
+`dist/phpmailer/`. Upload both `send.php` and the `phpmailer/` directory next to
+it via FTP; uploading the entire contents of `dist/` is sufficient. The script
+no longer requires `vendor/autoload.php` or Composer on the server. The hosting
+environment must have PHP enabled with the `ctype`, `filter`, `hash`, and
+`openssl` extensions for SMTP over TLS, as well as `curl` for Turnstile
+verification. The hosting provider must allow HTTPS connections to
+`challenges.cloudflare.com`.
 
-Pravidlá v `.htaccess` interne nasmerujú cesty ako `/o-aikide` na `index.html`,
-aby fungovalo priame otvorenie URL aj obnovenie stránky s React routovaním.
-Existujúce súbory a adresáre sa obsluhujú priamo.
+The rules in `.htaccess` internally route paths such as `/o-aikide` to
+`index.html`, allowing direct URL access and page refreshes to work with React
+routing. Existing files and directories are served directly.
 
-Apache musí mať zapnutý `mod_rewrite` a pre adresár webu povolené
-`AllowOverride FileInfo` (alebo `AllowOverride All`). Ak sa `.htaccess` ignoruje,
-toto nastavenie musí upraviť správca hostingu.
+Apache must have `mod_rewrite` enabled and `AllowOverride FileInfo` (or
+`AllowOverride All`) permitted for the website directory. If `.htaccess` is
+ignored, the hosting administrator must update this setting.
 
-Po nasadení over priame otvorenie a obnovenie stránky `/o-aikide` a načítanie
-existujúceho obrázka. Over tiež odoslanie kontaktného formulára. Súbor
-`sitemap.xml` nie je súčasťou Vite buildu; na server sa nahráva samostatne.
+After deployment, verify that `/o-aikide` can be opened directly and refreshed,
+and that an existing image loads. Also verify that the contact form can be
+submitted. The `sitemap.xml` file is not part of the Vite build and must be
+uploaded to the server separately.
 
-## Turnstile a kontaktný formulár
+## Turnstile and the contact form
 
-V Cloudflare Turnstile vytvor widget typu **Non-interactive** a povoľ domény
-`aikidolevice.sk` a `www.aikidolevice.sk`, ak používaš aj www.
-Skopíruj `.env.example` do `.env` a vyplň `VITE_TURNSTILE_SITE_KEY`
-(verejný site key) a `TURNSTILE_SECRET_KEY` (tajný secret key).
-Typ widgetu sa nastavuje v Cloudflare, nie parametrom v JavaScripte.
-Overenie prebieha automaticky bez checkboxu či klikania návštevníka.
-Súbor `.env` sa necommituje ani nenahráva na hosting.
+In Cloudflare Turnstile, create a **Non-interactive** widget and allow the
+`aikidolevice.sk` and `www.aikidolevice.sk` domains if you also use the www
+version. Copy `.env.example` to `.env` and set `VITE_TURNSTILE_SITE_KEY` (the
+public site key) and `TURNSTILE_SECRET_KEY` (the private secret key). The widget
+type is configured in Cloudflare, not through a JavaScript parameter.
+Verification runs automatically, without a checkbox or any action from the
+visitor. Do not commit the `.env` file or upload it to the hosting server.
 
-`npm run build` načíta kľúče z `.env` (prípadne `.env.production` podľa
-štandardných Vite pravidiel). Bez oboch kľúčov build skončí s chybou.
-Verejný kľúč sa vloží do JavaScriptu, tajný iba do vygenerovaného
-`dist/contact-config.php`. Na FTP nahraj celý obsah `dist/` vrátane tohto
-súboru, `turnstile.php` a `.htaccess`. Apache blokuje priamy prístup ku
-konfigurácii; PHP ju načíta interne. Po zmene kľúčov sprav nový build.
+`npm run build` loads the keys from `.env` (or `.env.production`, following
+standard Vite rules). The build fails if either key is missing. The public key
+is embedded in the JavaScript, while the secret key is written only to the
+generated `dist/contact-config.php`. Upload the entire contents of `dist/` via
+FTP, including this file, `turnstile.php`, and `.htaccess`. Apache blocks direct
+access to the configuration file; PHP loads it internally. Create a new build
+after changing the keys.
 
-Tlačidlo Odoslať je aktívne až po úspešnom overení. `send.php` overí token
-cez Cloudflare Siteverify vrátane akcie `contact` a domény pred odoslaním
-e-mailu. Pri chýbajúcom alebo neplatnom tokene, chybe Cloudflare či chýbajúcej
-konfigurácii sa e-mail neodošle. Po každom pokuse sa overenie obnoví, pretože
-token sa dá použiť iba raz.
+The Submit button is enabled only after successful verification. Before sending
+an email, `send.php` validates the token through Cloudflare Siteverify,
+including the `contact` action and the domain. No email is sent if the token is
+missing or invalid, Cloudflare returns an error, or the configuration is
+missing. Verification resets after every attempt because each token can be used
+only once.
 
-Pri `npm run dev` je odosielanie vypnuté a Turnstile sa nenačítava.
-Vite nespúšťa PHP; ani `npm run preview` nedokáže odoslať formulár, hoci
-zobrazuje produkčný build. Celé odosielanie over na Apache/PHP hostingu
-s reálnymi kľúčmi. Lokálny vývoj neposiela požiadavky na produkčný server.
+When running `npm run dev`, form submission is disabled and Turnstile is not
+loaded. Vite does not run PHP; `npm run preview` cannot submit the form either,
+even though it displays the production build. Test the entire submission flow
+on Apache/PHP hosting with real keys. Local development does not send requests
+to the production server.
